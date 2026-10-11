@@ -1,0 +1,11 @@
+('s', 46) ok
+('s', 48) ok
+('s', 45) ok
+('s', 47) ok
+('a', 'fx-score', 3) ok
+('a', 'fx-sanctuary', 2) ok
+('a', 'fx-score', 2) ok
+('a', 'fx-sanctuary', 1) ok
+('a', 'fx-sanctuary', 3) ok
+('a', 'fx-score', 1) ok
+done

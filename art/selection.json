@@ -1,0 +1,317 @@
+{
+ "_note": "每样挑的哪张；src 相对 art/out/。strip=剥掉自带外框的像素数；fit=透明图裁边后放进画布（resident 底部对齐）。",
+ "region/red-day-1.png": {
+  "src": "r1/region-red-day-s32.png"
+ },
+ "region/red-day-2.png": {
+  "src": "r1/region-red-day-s33.png"
+ },
+ "region/red-day-3.png": {
+  "src": "r1/region-red-day-s35.png"
+ },
+ "region/red-night-1.png": {
+  "src": "r1/region-red-night-s31.png"
+ },
+ "region/red-night-2.png": {
+  "src": "r1/region-red-night-s33.png"
+ },
+ "region/red-night-3.png": {
+  "src": "r1/region-red-night-s35.png"
+ },
+ "region/green-day-1.png": {
+  "src": "r1/region-green-day-s31.png"
+ },
+ "region/green-day-2.png": {
+  "src": "r1/region-green-day-s33.png"
+ },
+ "region/green-day-3.png": {
+  "src": "r1/region-green-day-s34.png"
+ },
+ "region/green-night-1.png": {
+  "src": "r1/region-green-night-s31.png"
+ },
+ "region/green-night-2.png": {
+  "src": "r1/region-green-night-s32.png"
+ },
+ "region/green-night-3.png": {
+  "src": "r1/region-green-night-s33.png"
+ },
+ "region/blue-day-1.png": {
+  "src": "r1/region-blue-day-s31.png"
+ },
+ "region/blue-day-2.png": {
+  "src": "r1/region-blue-day-s32.png"
+ },
+ "region/blue-day-3.png": {
+  "src": "r1/region-blue-day-s35.png"
+ },
+ "region/blue-night-1.png": {
+  "src": "r1/region-blue-night-s32.png"
+ },
+ "region/blue-night-2.png": {
+  "src": "r1/region-blue-night-s33.png"
+ },
+ "region/blue-night-3.png": {
+  "src": "r1/region-blue-night-s34.png"
+ },
+ "region/yellow-day-1.png": {
+  "src": "r1/region-yellow-day-s31.png"
+ },
+ "region/yellow-day-2.png": {
+  "src": "r1/region-yellow-day-s32.png"
+ },
+ "region/yellow-day-3.png": {
+  "src": "r1/region-yellow-day-s33.png"
+ },
+ "region/yellow-night-1.png": {
+  "src": "r1/region-yellow-night-s31.png"
+ },
+ "region/yellow-night-2.png": {
+  "src": "r1/region-yellow-night-s32.png"
+ },
+ "region/yellow-night-3.png": {
+  "src": "r1/region-yellow-night-s33.png"
+ },
+ "sanctuary/red.png": {
+  "src": "r1/sanct-red-s43.png",
+  "strip": 0
+ },
+ "sanctuary/green.png": {
+  "src": "r1/sanct-green-s42.png",
+  "strip": 2
+ },
+ "sanctuary/blue.png": {
+  "src": "r1/sanct-blue-s42.png",
+  "strip": 2
+ },
+ "sanctuary/yellow.png": {
+  "src": "r1/sanct-yellow-s43.png",
+  "strip": 0
+ },
+ "sanctuary/gray-day-1.png": {
+  "src": "r1/sanct-gray-day-s42.png",
+  "strip": 0
+ },
+ "sanctuary/gray-day-2.png": {
+  "src": "r1/sanct-gray-day-s41.png",
+  "strip": 1
+ },
+ "sanctuary/gray-night.png": {
+  "src": "r2/sanct-gray-night-s47.png"
+ },
+ "back/region.png": {
+  "src": "r1/back-region-s51.png"
+ },
+ "back/sanctuary.png": {
+  "src": "r1/back-sanct-s58.png"
+ },
+ "resident/red-1.png": {
+  "src": "r1/res-red-1/res-red-1-19.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/red-2.png": {
+  "src": "r1/res-red-2/res-red-2-43.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/red-3.png": {
+  "src": "r1/res-red-3/res-red-3-3.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/red-4.png": {
+  "src": "r1/res-red-4/res-red-4.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/green-1.png": {
+  "src": "r1/res-green-1/res-green-1-12.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/green-2.png": {
+  "src": "r1/res-green-2/res-green-2-9.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/green-3.png": {
+  "src": "r1/res-green-3/res-green-3-2.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/green-4.png": {
+  "src": "r1/res-green-4/res-green-4-35.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/blue-1.png": {
+  "src": "r1/res-blue-1/res-blue-1-15.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/blue-2.png": {
+  "src": "r1/res-blue-2/res-blue-2-9.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/blue-3.png": {
+  "src": "r1/res-blue-3/res-blue-3-11.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/blue-4.png": {
+  "src": "r1/res-blue-4/res-blue-4-20.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/yellow-1.png": {
+  "src": "r1/res-yellow-1/res-yellow-1.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/yellow-2.png": {
+  "src": "r1/res-yellow-2/res-yellow-2-2.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/yellow-3.png": {
+  "src": "r1/res-yellow-3/res-yellow-3.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "resident/yellow-4.png": {
+  "src": "r1/res-yellow-4/res-yellow-4-12.png",
+  "fit": [
+   40,
+   40
+  ],
+  "anchor": "bottom"
+ },
+ "icon/stone.png": {
+  "src": "r1/icon-stone/icon-stone.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "icon/chimera.png": {
+  "src": "r1/icon-chimera/icon-chimera-32.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "icon/thistle.png": {
+  "src": "r1/icon-thistle/icon-thistle-12.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "icon/clue.png": {
+  "src": "r1/icon-clue/icon-clue-2.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "icon/night.png": {
+  "src": "r1/icon-night/icon-night-34.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "icon/day.png": {
+  "src": "r1/icon-day/icon-day-3.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "icon/biome-yellow.png": {
+  "src": "r1/icon-biome-yellow/icon-biome-yellow-24.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "bg/day.png": {
+  "src": "r1/bg-day-s82.png"
+ },
+ "bg/night.png": {
+  "src": "r1/bg-night-s84.png"
+ },
+ "icon/biome-red.png": {
+  "src": "r1/icon-biome-red/icon-biome-red.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "icon/biome-green.png": {
+  "src": "r1/icon-biome-green/icon-biome-green-24.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "icon/biome-blue.png": {
+  "src": "r1/icon-biome-blue/icon-biome-blue-5.png",
+  "fit": [
+   24,
+   24
+  ]
+ },
+ "_fx": {
+  "fx/score.png": "r2/fx-score/s2 帧 0,2-7 + 空白（fx.py）",
+  "fx/sanctuary.png": "r2/fx-sanctuary/s3 帧 0,2-7 + 空白（fx.py）"
+ },
+ "_cover": "out/covers/faraway-px-s91.png（推荐），另两个候选 faraway-px-s93、faraway-pf-s96"
+}

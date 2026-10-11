@@ -1,0 +1,129 @@
+{"time": "2026-10-11 13:05:04", "name": "pf-red-nocol", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 44.5}
+{"time": "2026-10-11 13:05:12", "name": "px-red256", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 52.5}
+{"time": "2026-10-11 13:05:15", "name": "px-red", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 55.1}
+{"time": "2026-10-11 13:05:34", "name": "pf-red", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 74.0}
+{"time": "2026-10-11 13:08:22", "name": "region-red-night-s34", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 73.0}
+{"time": "2026-10-11 13:08:39", "name": "region-red-day-s32", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 89.8}
+{"time": "2026-10-11 13:08:40", "name": "region-red-night-s31", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 91.4}
+{"time": "2026-10-11 13:08:42", "name": "region-red-night-s35", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 92.9}
+{"time": "2026-10-11 13:08:50", "name": "region-red-day-s34", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 100.7}
+{"time": "2026-10-11 13:08:52", "name": "region-red-night-s32", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 103.5}
+{"time": "2026-10-11 13:08:57", "name": "region-red-day-s33", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 108.5}
+{"time": "2026-10-11 13:09:12", "name": "region-green-day-s33", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 32.1}
+{"time": "2026-10-11 13:09:14", "name": "region-green-day-s32", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 35.0}
+{"time": "2026-10-11 13:09:26", "name": "region-green-day-s34", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 43.8}
+{"time": "2026-10-11 13:09:27", "name": "region-green-night-s31", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 34.8}
+{"time": "2026-10-11 13:09:29", "name": "region-green-day-s31", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 66.9}
+{"time": "2026-10-11 13:09:31", "name": "region-green-night-s32", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 33.2}
+{"time": "2026-10-11 13:09:42", "name": "region-red-night-s33", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 153.5}
+{"time": "2026-10-11 13:10:17", "name": "region-green-night-s35", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 51.7}
+{"time": "2026-10-11 13:10:22", "name": "region-red-day-s35", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 193.3}
+{"time": "2026-10-11 13:10:25", "name": "region-green-night-s33", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 72.8}
+{"time": "2026-10-11 13:10:29", "name": "region-green-day-s35", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 98.9}
+{"time": "2026-10-11 13:10:34", "name": "region-green-night-s34", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 80.7}
+{"time": "2026-10-11 13:10:39", "name": "region-blue-day-s33", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 68.6}
+{"time": "2026-10-11 13:10:45", "name": "region-blue-day-s34", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 62.9}
+{"time": "2026-10-11 13:10:55", "name": "region-blue-day-s32", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 85.8}
+{"time": "2026-10-11 13:11:03", "name": "region-blue-night-s31", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 40.3}
+{"time": "2026-10-11 13:11:16", "name": "region-blue-day-s35", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 58.9}
+{"time": "2026-10-11 13:11:17", "name": "region-blue-night-s32", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 51.5}
+{"time": "2026-10-11 13:11:21", "name": "region-blue-night-s35", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 42.2}
+{"time": "2026-10-11 13:11:26", "name": "region-blue-night-s33", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 57.2}
+{"time": "2026-10-11 13:11:39", "name": "region-yellow-day-s32", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 44.8}
+{"time": "2026-10-11 13:11:42", "name": "region-blue-night-s34", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 68.1}
+{"time": "2026-10-11 13:12:05", "name": "region-yellow-night-s32", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 39.5}
+{"time": "2026-10-11 13:12:11", "name": "region-blue-day-s31", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 163.7}
+{"time": "2026-10-11 13:12:21", "name": "region-yellow-night-s31", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 59.8}
+{"time": "2026-10-11 13:12:28", "name": "region-yellow-day-s34", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 71.3}
+{"time": "2026-10-11 13:12:31", "name": "region-yellow-night-s34", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 48.2}
+{"time": "2026-10-11 13:12:33", "name": "region-yellow-day-s33", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 90.3}
+{"time": "2026-10-11 13:12:51", "name": "region-yellow-night-s35", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 45.9}
+{"time": "2026-10-11 13:12:54", "name": "region-yellow-day-s35", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 97.2}
+{"time": "2026-10-11 13:12:59", "name": "sanct-red-s42", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 37.9}
+{"time": "2026-10-11 13:13:03", "name": "sanct-red-s43", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 35.8}
+{"time": "2026-10-11 13:13:09", "name": "sanct-red-s41", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 58.5}
+{"time": "2026-10-11 13:13:10", "name": "region-yellow-day-s31", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 144.7}
+{"time": "2026-10-11 13:13:17", "name": "region-yellow-night-s33", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 97.7}
+{"time": "2026-10-11 13:13:21", "name": "sanct-green-s41", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 47.9}
+{"time": "2026-10-11 13:13:24", "name": "sanct-green-s43", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 29.8}
+{"time": "2026-10-11 13:13:24", "name": "sanct-red-s44", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 53.2}
+{"time": "2026-10-11 13:13:31", "name": "sanct-green-s42", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 39.9}
+{"time": "2026-10-11 13:13:43", "name": "sanct-yellow-s41", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 22.1}
+{"time": "2026-10-11 13:13:48", "name": "sanct-blue-s44", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 30.7}
+{"time": "2026-10-11 13:13:53", "name": "sanct-green-s44", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 54.3}
+{"time": "2026-10-11 13:13:55", "name": "sanct-blue-s42", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 45.5}
+{"time": "2026-10-11 13:13:56", "name": "sanct-blue-s41", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 53.0}
+{"time": "2026-10-11 13:13:57", "name": "sanct-blue-s43", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 47.5}
+{"time": "2026-10-11 13:14:04", "name": "sanct-yellow-s43", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 40.2}
+{"time": "2026-10-11 13:14:07", "name": "sanct-yellow-s42", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 43.3}
+{"time": "2026-10-11 13:14:12", "name": "sanct-yellow-s44", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 41.3}
+{"time": "2026-10-11 13:14:20", "name": "sanct-gray-day-s44", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 25.0}
+{"time": "2026-10-11 13:14:24", "name": "sanct-gray-day-s43", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 31.0}
+{"time": "2026-10-11 13:14:34", "name": "back-region-s51", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 21.6}
+{"time": "2026-10-11 13:14:34", "name": "sanct-gray-night-s42", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 36.8}
+{"time": "2026-10-11 13:14:39", "name": "back-region-s52", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 19.0}
+{"time": "2026-10-11 13:14:40", "name": "sanct-gray-day-s41", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 57.4}
+{"time": "2026-10-11 13:14:44", "name": "sanct-gray-night-s43", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 39.5}
+{"time": "2026-10-11 13:14:47", "name": "sanct-gray-night-s44", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 40.4}
+{"time": "2026-10-11 13:14:48", "name": "back-region-s53", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 23.7}
+{"time": "2026-10-11 13:14:57", "name": "sanct-gray-night-s41", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 61.0}
+{"time": "2026-10-11 13:15:08", "name": "back-sanct-s57", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 28.1}
+{"time": "2026-10-11 13:15:12", "name": "back-sanct-s55", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 38.3}
+{"time": "2026-10-11 13:15:18", "name": "sanct-gray-day-s42", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 89.9}
+{"time": "2026-10-11 13:15:18", "name": "back-sanct-s56", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 38.9}
+{"time": "2026-10-11 13:15:18", "name": "back-sanct-s58", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 34.2}
+{"time": "2026-10-11 13:15:45", "name": "region-red-day-s31", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 515.9}
+{"time": "2026-10-11 13:16:13", "name": "back-region-s54", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 99.3}
+{"time": "2026-10-11 13:19:09", "name": "res-red-4", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 240.5, "status": "completed"}
+{"time": "2026-10-11 13:21:01", "name": "res-green-3", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 342.7, "status": "completed"}
+{"time": "2026-10-11 13:21:12", "name": "res-green-2", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 354.7, "status": "completed"}
+{"time": "2026-10-11 13:21:13", "name": "res-blue-1", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 328.7, "status": "completed"}
+{"time": "2026-10-11 13:21:15", "name": "res-red-2", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 387.3, "status": "completed"}
+{"time": "2026-10-11 13:21:28", "name": "res-green-1", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 375.8, "status": "completed"}
+{"time": "2026-10-11 13:21:31", "name": "res-red-1", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 403.8, "status": "completed"}
+{"time": "2026-10-11 13:21:50", "name": "res-green-4", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 392.5, "status": "completed"}
+{"time": "2026-10-11 13:22:06", "name": "res-blue-2", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 353.2, "status": "completed"}
+{"time": "2026-10-11 13:22:40", "name": "res-red-3", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 463.0, "status": "completed"}
+{"time": "2026-10-11 13:23:44", "name": "res-blue-3", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 275.4, "status": "completed"}
+{"time": "2026-10-11 13:25:26", "name": "icon-chimera", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 215.8, "status": "completed"}
+{"time": "2026-10-11 13:25:32", "name": "icon-thistle", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 171.9, "status": "completed"}
+{"time": "2026-10-11 13:26:04", "name": "res-yellow-1", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 291.5, "status": "completed"}
+{"time": "2026-10-11 13:26:10", "name": "icon-stone", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 278.5, "status": "completed"}
+{"time": "2026-10-11 13:26:20", "name": "res-blue-4", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 319.2, "status": "completed"}
+{"time": "2026-10-11 13:26:26", "name": "res-yellow-3", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 310.5, "status": "completed"}
+{"time": "2026-10-11 13:26:55", "name": "icon-clue", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 190.4, "status": "completed"}
+{"time": "2026-10-11 13:27:18", "name": "icon-chimera2", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 311.9, "status": "completed"}
+{"time": "2026-10-11 13:27:19", "name": "res-yellow-2", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 366.0, "status": "completed"}
+{"time": "2026-10-11 13:27:24", "name": "res-yellow-4", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 15.0}, "seconds": 355.8, "status": "completed"}
+{"time": "2026-10-11 13:27:54", "name": "bg-day-s81", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 59.4}
+{"time": "2026-10-11 13:28:08", "name": "icon-night", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 162.2, "status": "completed"}
+{"time": "2026-10-11 13:28:11", "name": "bg-day-s83", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 51.3}
+{"time": "2026-10-11 13:28:21", "name": "bg-day-s82", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 63.1}
+{"time": "2026-10-11 13:28:27", "name": "bg-night-s84", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 62.7}
+{"time": "2026-10-11 13:28:38", "name": "icon-day", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 185.9, "status": "completed"}
+{"time": "2026-10-11 13:28:43", "name": "cover-px-s91", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 32.7}
+{"time": "2026-10-11 13:28:53", "name": "bg-night-s85", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 58.6}
+{"time": "2026-10-11 13:29:02", "name": "cover-px-s92", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 40.6}
+{"time": "2026-10-11 13:29:04", "name": "bg-night-s86", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 55.6}
+{"time": "2026-10-11 13:29:10", "name": "icon-biome-yellow", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 163.9, "status": "completed"}
+{"time": "2026-10-11 13:29:11", "name": "cover-px-s93", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 44.3}
+{"time": "2026-10-11 13:29:15", "name": "cover-pf-s94", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 36.5}
+{"time": "2026-10-11 13:29:27", "name": "icon-biome-red", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 202.8, "status": "completed"}
+{"time": "2026-10-11 13:29:33", "name": "cover-pf-s95", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 49.3}
+{"time": "2026-10-11 13:29:34", "name": "fx-star-s97", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 32.2}
+{"time": "2026-10-11 13:29:39", "name": "cover-pf-s96", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 46.3}
+{"time": "2026-10-11 13:29:41", "name": "fx-shrine-s99", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 31.1}
+{"time": "2026-10-11 13:29:42", "name": "fx-star-s98", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 38.5}
+{"time": "2026-10-11 13:29:47", "name": "fx-shrine-s100", "endpoint": "/create-image-pixflux", "usage": {"type": "generations", "generations": 1.0}, "seconds": 36.0}
+{"time": "2026-10-11 13:29:48", "name": "icon-biome-blue", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 208.1, "status": "completed"}
+{"time": "2026-10-11 13:30:47", "name": "icon-biome-green", "endpoint": "/generate-image-v2", "usage": {"type": "generations", "generations": 10.0}, "seconds": 277.1, "status": "completed"}
+{"time": "2026-10-11 13:31:58", "name": "sanct-gray-night-s46", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 24.9}
+{"time": "2026-10-11 13:32:13", "name": "sanct-gray-night-s48", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 39.8}
+{"time": "2026-10-11 13:32:14", "name": "sanct-gray-night-s45", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 40.3}
+{"time": "2026-10-11 13:32:29", "name": "sanct-gray-night-s47", "endpoint": "/create-image-pixen", "usage": {"type": "generations", "generations": 1.0}, "seconds": 55.6}
+{"time": "2026-10-11 13:37:16", "name": "fx-score-s3", "endpoint": "/animate-with-text-v3", "usage": {"type": "generations", "generations": 1.0}, "seconds": 343.0, "status": "completed"}
+{"time": "2026-10-11 13:37:23", "name": "fx-sanctuary-s2", "endpoint": "/animate-with-text-v3", "usage": {"type": "generations", "generations": 1.0}, "seconds": 349.4, "status": "completed"}
+{"time": "2026-10-11 13:38:15", "name": "fx-score-s2", "endpoint": "/animate-with-text-v3", "usage": {"type": "generations", "generations": 1.0}, "seconds": 401.5, "status": "completed"}
+{"time": "2026-10-11 13:38:36", "name": "fx-sanctuary-s1", "endpoint": "/animate-with-text-v3", "usage": {"type": "generations", "generations": 1.0}, "seconds": 422.6, "status": "completed"}
+{"time": "2026-10-11 13:38:48", "name": "fx-sanctuary-s3", "endpoint": "/animate-with-text-v3", "usage": {"type": "generations", "generations": 1.0}, "seconds": 434.3, "status": "completed"}
+{"time": "2026-10-11 13:40:07", "name": "fx-score-s1", "endpoint": "/animate-with-text-v3", "usage": {"type": "generations", "generations": 1.0}, "seconds": 513.2, "status": "completed"}

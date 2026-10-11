@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1c1430" />
+    <!-- 白天 / 夜间画面：样式生效前先定下来，打开页面时不会先闪一下深色（见 src/theme.tsx） -->
+    <script>try { if (localStorage.getItem("gm-pixel-theme") === "day") document.documentElement.dataset.theme = "day"; } catch (e) {}</script>
+    <link rel="icon" type="image/png" href="./art/icon/clue.png" />
+    <meta name="description" content="遥远之地：2–6 人同时出牌、倒序计分的探险卡牌游戏，网页联机。" />
+    <title>遥远之地 · 在线对战</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- 右下角「写评价」悬浮窗，由大厅提供（game-center/public/gc-feedback.js）；牌桌和教程带 data-gc-table，那里不显示。
+         本地开发（网址带端口）时没有大厅，不加载。 -->
+    <script>if (!location.port) { var gcfb = document.createElement("script"); gcfb.src = "/gc-feedback.js"; gcfb.defer = true; document.body.appendChild(gcfb); }</script>
+  </body>
+</html>
