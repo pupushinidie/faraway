@@ -1,73 +1,133 @@
-# 欲罢不能（Can't Stop）
+# 遥远之地
 
-2–4 人的掷骰登山桌游，网页联机版。掷 4 颗骰子两两分组，带着 3 个登山者往 2–12 号登山路上爬；每爬一步都要选再掷还是收手扎营，爆掉就白爬。先登顶 3 条路的人获胜。名字、美术和规则说明文字都是自己的。
+2–6 人同时出牌、倒序计分的探险卡牌游戏，网页联机版（一个人也能加人机开局）。规则按 `~/Desktop/游戏规则/遥远之地.md` 实现；名字、美术（PixelLab「晴空奇境」）和规则说明文字都是自己的，不用原版商标名和美术。
 
-线上地址：<https://gulugagame.com/cantstop/>
+线上地址（上线后）：<https://gulugagame.com/faraway/>（付费网关后面，要登录）
 
 ## 本地运行
 
 ```bash
 npm install
-npm run dev          # 服务端 :3008，网页 :5181
-npm test             # 规则引擎（29 个用例，含 300 局随机模拟）
+npm run dev          # 服务端 :3028，网页 :5299（WEB_PORT / SERVER_PORT 可以改，另起一套服务不撞端口）
+npm test             # 规则包、服务器（见下面「测试」）
 npm run typecheck
+BASE_PATH=/faraway/ npm run build
 ```
 
-一个人测试：`node scripts/test-bot.mjs host 2 1` 会让机器人建一个 2 人房并打印房间码，你在网页里用房间码加入凑满后自动开局。机器人随机挑走法，推进后按「再掷爆掉的概率」决定收手还是再掷。`BOT_DELAY_MS` 调思考时间，`BOT_IDLE=1` 只挂着不动，`BOT_GREEDY=1` 更贪（方便看爆掉）。`node scripts/test-bot.mjs host 3 3` 是三个机器人自己打完一整局。
+改了规则书的卡表要跑 `python scripts/gen-cards.py` 重新生成 `packages/game/src/cards-data.ts`（会和选题草稿逐张比对、打印不同），再 `npm run build:game` 并 `touch apps/server/src/index.ts`。
 
-## 规则要点
+一个人测试：`node scripts/test-bot.mjs host 3 2` 让机器人建一个 3 人房（自己再拉 1 个机器人）并打印房间码，你在网页里用房间码加入凑满后自动开局；`node scripts/test-bot.mjs host 4 4` 四个机器人自己打完一整局。`BOT_DELAY_MS` 调思考时间，`BOT_IDLE=1` 只挂着不动（测超时和托管），`ADD_BOTS=n` 让服务器再加 n 个人机，`BOT_REMATCH=1` 打完接着再来一局，`ASSIST=0` 关掉辅助显示。
 
-- 11 条赛道编号 2–12，格数 3/5/7/9/11/13/11/9/7/5/3。
-- 掷 4 颗骰子，三种两两分组任选一种；两个和都能走必须都走，只能走一个时任选一个；两个和相同就在同一条路爬 2 格。
-- 3 个临时标记（登山者）：每回合最多推进 3 条不同赛道。新上一条路时从自己的营地上方一格开始。
-- 推进后选再掷或收手：收手时登山者变成营地；登山者在顶格时收手就占领这条路（撤下别人在这条路上的营地，赛道关闭）。
-- 怎么分组都走不了就爆掉，本回合进度全部作废，之前的营地不动。
-- 先占领 3 条赛道立即获胜（一次收手可能同时占领两条）。
+抓包：`node scripts/spy.mjs 4`（先 `npm run dev`）用 4 个 socket 加一个观战的人打完一局，检查每条 `room:updated` 里有没有别人的手牌、已出未翻开的牌、抽到的圣所、牌堆顺序和种子。
 
-### 规格书没写清、按默认值实现的地方
+## 规则（自己的话）
 
-| 情况 | 现在的做法 |
-|---|---|
-| 一种分组的两个和只能走一个 | 两个都列成选项，玩家任选一个（标准规则） |
-| 登山者离顶只差 1 格却掷出同一个和两次 | 只走 1 格到顶，第二步作废，这算合法走法 |
-| 已经在顶格的登山者又掷到这条路 | 这条路走不了（不算可用的和） |
-| 回合计时 | 每一步 45 秒：回合开始没掷骰就超时→跳过这回合；掷了骰没选→自动选第一种走法并收手；推进后没决定→收手 |
-| 收手前提示 | 界面显示「再掷爆掉的概率」（枚举 6⁴ 种结果），可以隐藏 |
-| 人机 | 房主在等待时点空座位上的「加人机」（咕噜一号 / 二号 / 三号，普通难度），移出用「移出」；一个人加满人机也能开局。人机总是同意再来一局 |
-| 托管 | 连续超时 2 次转托管，由人机代打；自己动一下或点「取消托管」就交还。离线的人轮到时先等 3 秒，再由人机代打（不算超时）；用原昵称回来就交还 |
+- 一局 8 轮。每轮所有人**同时**从 3 张手牌里打出 1 张区域卡，排在自己出牌区的最右边；大家都出好才一起翻开。出了不能撤回。
+- 卡上的数字（1–68）是探索时间：
+  - **数字小先挑**：翻开后按这一轮打出的数字从小到大，每人从公共牌里挑 1 张补回手里（第 8 轮不挑）。公共牌每轮是人数 + 1 张，最后剩下的 1 张移出游戏。
+  - **比自己上一张大就发现圣所**：抽 1 + 线索数张圣所卡（线索算出牌区所有卡、圣所和刚打出的这张），留 1 张正面放好，其余放回圣所牌堆底。只和紧挨着的上一张比，不是和之前所有的比。第 1 轮没有上一张，不发现。
+- 终局**从最右边往左**一张张翻开计分：每张卡只看得到自己、它右边的卡和全部圣所。任务（每个奇石 2 分、每张某色卡 1 分、四色一套 10 分……）按看得到的东西算；前置条件（至少几个奇石 / 灵兽 / 蓟草）不够，这张就 0 分。资源不会被用掉，一个奇石能同时满足好几张卡。所以要求高的卡早打（放左边），给资源的卡晚打（放右边）。
+- 8 张都翻完后，再按全部区域卡 + 圣所算每张圣所的任务分。总分最高的人赢；并列时，出牌区里有编号最小的那张卡的人赢。
+
+叫法（开工拍板）：奇石 / 灵兽（规则书叫奇美拉）/ 蓟草；地形 菌林（红）、溪谷（绿）、石原（蓝）、岩城（黄）。
+
+### 规则书没写死、这里这样处理的地方
+
+| 情况 | 现在的做法 | 依据 |
+|---|---|---|
+| 圣所牌堆不够发 | 按这一轮打出的编号从小到大发，每人发到要的张数或牌堆发完为止，后面的人少拿或拿不到；不重洗；这一轮放回的要等他留好才进牌堆底，补不到后面的人 | 开工拍板（规则书 §11-1 推荐 a） |
+| 出牌提交后能不能撤回 | 不能 | 开工拍板 |
+| 辅助显示（手牌标能不能拿圣所、能抽几张；出牌区每张卡标按现在算的分，条件不满足标红） | 默认开，建房时或等候时房主可以关（`options.assist`） | 开工拍板 |
+| 进阶开局（发 5 留 3） | 不做 | 开工拍板 |
+| 平局 | 出牌区编号最小的那张更小的人赢（官方），所以一定分得出第一名 | 规则书 §7 |
+| 公共牌剩下的 | 移出游戏，公开列出 | 规则书 §4.3 |
+| 第 7 轮结束 | 不翻新的公共牌，第 8 轮不挑 | 规则书 §11 |
+| 留圣所 | 抽到圣所的人马上就能留，不用等前面的人挑完公共牌；挑公共牌严格按顺序 | 规则书 §9.2 |
+| 人数 | 2–6 人；一个人加满人机也能开局 | 规则书 §3、全站约定 |
+| 第 8 轮后的 2 张手牌 | 不计分，终局也不公开 | 规则书 §4.4 |
+
+### 超时、托管（全站约定，覆盖规则书 §9.4）
+
+| 步骤 | 限时 | 到点 |
+|---|---|---|
+| 出牌（大家同时） | 60 秒 + 上一步动画 | 没出的人由人机策略代打（出错就出手里编号最小的） |
+| 挑公共牌（轮到的人） | 30 秒 + 上一步动画 | 人机策略代挑（退回：最小的那张） |
+| 留圣所 | 和挑公共牌共用一个倒计时：到点时还没留的人一起代留 | 人机策略代留（退回：第一张） |
+
+- 计时 key（`stepKey`）只在换轮、换阶段、轮到下一个人挑公共牌时变：别人出牌、留圣所不会重置倒计时；到点后才轮到的人重新计时。
+- 连续超时 2 次转托管，由人机代打；自己动一下或点「取消托管」交还。离线的人轮到时先等 3 秒，再由人机代打（不算超时）；用原昵称回来就交还。
+- 人机叫咕噜一号、二号……带「人机」标签，只有「普通」一档；房主在等候时点空座位「加人机」，总是同意再来一局。
 
 ## 目录
 
 | 路径 | 内容 |
 |---|---|
-| `packages/game/src/engine.ts` | 规则引擎：`apply(state, playerId, command, rng) → { state, events }`，纯函数；配对与合法走法 `moveOptions`、推进 `advanceRunners`、爆掉、收手与占领、超时处理、爆掉概率 `bustProbability` |
-| `packages/game/src/board.ts` | 赛道编号和格数、三种分组方式 |
-| `packages/game/src/bot.ts` | 人机：本回合价值 = 各登山者多爬的格数 ÷ 赛道长（爬到顶另加分）；再掷还是收手按一步前瞻（爆掉概率 × 丢掉的价值 对比 不爆时平均多拿的价值）；选走法挑走完以后期望价值最大的。模拟对局里对「28 法则」胜率约 62% |
-| `apps/server` | Socket.IO 房间、人机座位和托管（`BOT_DELAY_SCALE=0` 让人机立刻行动，测试用）、断线用原昵称回到座位、每一步 45 秒计时（超时自动处理）、语音信令、每局的种子和动作序列写进 `logs/games.jsonl` |
-| `apps/web/src/Mountain.tsx` | 山体棋盘：11 根岩柱拼成一座山，登山者（临时标记）、营地小旗（永久标记）、山顶大旗（占领）；攀爬、摔落、插旗动画；鼠标停在走法上时预览登山者会到哪 |
-| `apps/web/src/DiceTray.tsx` | 骰子盘：翻滚动画、按分组标色、走法选项、再掷 / 收手、爆掉概率 |
-| `apps/web/src/GameBoard.tsx` | 对局界面：舞台、登山队、登山日志、横幅、结算弹窗 |
-| `art/` | PixelLab 美术流水线（见下） |
+| `packages/game/src/cards-data.ts` | 68 张区域卡 + 45 张圣所卡（`scripts/gen-cards.py` 从规则书表格生成） |
+| `packages/game/src/cards.ts` | 查卡、计数 `tally`、任务分 `questScore`、前置条件 `prereqMet`、倒序计分 `scorePlayer`、发现圣所 `discoveryFor` |
+| `packages/game/src/engine.ts` | 规则引擎：`apply` 纯函数、`applyCommand`（服务端，记动作序列）、`waitingFor`、`legalActions`、`stepKey`、`timeoutTurn`、`baselineCommand`、`redactGameForViewer` / `redactGameForSpectator`、`createGame` |
+| `packages/game/src/scenes.ts` | 预览局面工厂（见下） |
+| `packages/game/src/validate.ts` | `stateProblems`：局面自洽检查（守恒、张数、不卡死） |
+| `packages/game/src/bot.ts` | 人机 `botCommand` |
+| `apps/server` | Socket.IO 房间服务器（从谁是牛头王移植的同时出牌版：一步一个截止时间、每个人机座位一个计时器、迟到的点击带 step 拒收、限速、挤登录、观战、管理员解散） |
+| `apps/web` | 网页 |
+| `art/` | 美术（暂存目录复制来的 spec、出图脚本、`out/final` 定稿；候选图 gitignore）；定稿放在 `apps/web/public/art/` |
+| `scripts/` | `test-bot.mjs` 陪玩、`spy.mjs` 抓包、`gen-cards.py` 卡表 |
 
-## 美术流水线（`art/`）
+## 测试
 
-PixelLab API，密钥只在 `~/.config/pixellab/api_key`，不进仓库。每次调用记进 `art/ledger.jsonl`，`BUDGET_USD` 设上限。生成的原图和中间文件在被 gitignore 的 `art/out/`。
+| 文件 | 内容 |
+|---|---|
+| `packages/game/test/data.test.ts` | 规则书 §2.3、§2.4 的核对数字；对照 BGA 卡图抽查 16 张（区域 10、圣所 6）写死 |
+| `packages/game/test/rulebook.test.ts` | 规则书 §10 T1–T15（测试名带 `规则书#T1`…），含例 1/2/3 的 80 / 49 / 45 分和 T11 的 33 / 9 分 |
+| `packages/game/test/sections.test.ts` | 规则书各节（§3、§4.1–4.4、§5、§6、§7、§9.4）的场景测试，倒序计分「左边没翻开的卡不可见」专门测 |
+| `packages/game/test/random.test.ts` | 2–6 人各 300 局随机对局（含随机超时），每步查守恒、张数、轮次、不卡死，隔几步查隐藏信息 |
+| `packages/game/test/scenes.test.ts` | 预览局面工厂每个局面自洽 |
+| `apps/server/test/flow.test.ts` | 建房选项、全流程到终局和再来一局、计时 key、超时和转托管、重连、迟到的点击、管理员解散、限速、抓包断言 |
+| `apps/server/test/timeouts.test.ts` | 真实计时（TURN_MS=500）没人动也能打完 |
+| `apps/server/test/spectate.test.ts`、`kickSession.test.ts`、`bots*.test.ts` | 观战、挤登录、人机（全站模板） |
 
-- `pixellab.py`：API 客户端（同步出图、后台任务轮询、角色和动画），调用即记账。
-- `r1.py`：第一轮候选。小图用 `/generate-image-v2`（≤42px 一次出 64 个候选），场景大图用 `/create-image-pixen`（512×288）。
-- `sheet.py`：把一批候选拼成对照图。
-- `selection.json` + `export.py`：选定的图导出到 `apps/web/public/art/`。登山者、头像、营地小旗、山顶大旗只画红色一套，其他座位色把红色像素换色；骰面在选定的空白骰子上按点数画点。
+## 对外接口（规则包 `@faraway/game`）
 
-## 画面：白天版和夜间版
+### 状态
 
-只有像素风一种画面（原始版本已删掉），配色分夜间（深色，默认）和白天（白底）两种。顶栏「切换白天版 / 切换夜间版」随时切换，只影响自己看到的画面，记在浏览器的 `gm-pixel-theme` 里；gulugagame.com 上的大厅和各个游戏同源，共用这一个选择。
+- `GameState`：`phase`（`play` 出牌 / `resolve` 挑公共牌和留圣所 / `ended`）、`round`（1–8）、`players`、`market`、`removed`、`regionDeckCount`、`sanctuaryDeckCount`、`resolveOrder`（这一轮按编号从小到大的顺序）、`resolveIndex`（轮到第几个挑）、`lastReveal`（这一轮翻开的牌和谁发现了圣所）、`events`（最近一步的事件）、`finalResult`（`ranking`、`winners`、`scores[id] = { regions, prereqOk, sanctuaries, regionTotal, sanctuaryTotal, total }`、`tieBreak`）、`version`。
+- `Player`：`hand`（别人看到空数组，张数看 `handCount`）、`played`、`sanctuaries`、`submitted`、`pendingPlay`（别人看到 null）、`offer`（别人看到空数组，张数看 `offerCount`）、`offerWanted`、`tookMarket`。
+- 只在服务端：`regionDeck`、`sanctuaryDeck`（下标 0 是顶）、`seed`、`rngState`、`log`。
+- 动作：`{ type: "play", card }`、`{ type: "take", card }`、`{ type: "keep", sanctuary }`，都可以带 `step: stepKey(game)`。
+- 事件：`Submitted`、`Revealed`（plays 按编号从小到大）、`SanctuariesDrawn`（只有张数）、`MarketTaken`、`SanctuaryKept`（放回几张，不说是哪几张）、`MarketRemoved`、`RoundStarted`、`GameEnded`、`TimedOut`。
+- 动画节奏 `ANIMATION`：翻牌 1.6 秒、每次抽圣所 0.5 秒、挑牌 0.6 秒、终局倒序计分 15 秒；服务器按 `animationMs(events)` 给下一步的倒计时和人机停顿留时间。
 
-- 夜间配色就是 `app-pixel.css`（首页和等候房间）和 `cantstop.css`（牌桌）本身。白天版不单独写：`apps/web/day-theme.ts`（Vite 插件）在构建时把这些样式里和颜色有关的声明照抄一份，选择器前加 `:root[data-theme="day"]`，按 `apps/web/day-palette.ts` 的调色表换成白天的颜色。改夜间样式时白天版自动跟着变，只有新出现的深色需要在调色表里补一行。
-- 机械换色不合适的地方在 `apps/web/src/theme-day.css` 里手写。
-- `index.html` 里一小段脚本在样式生效前就给 `<html>` 加上 `data-theme="day"`，打开页面不会先闪一下深色；切换逻辑和按钮在 `src/theme.tsx`。
+### 计分工具（界面的辅助显示也用）
 
-## 部署
+- `scorePlayer(played, sanctuaries)`：倒序计分；出牌区不满 8 张也能算（就是「按现在算」）。
+- `discoveryFor(played, sanctuaries, card)` → `{ discovered, count }`：打这张能不能发现圣所、抽几张。
+- `tally(regions, sanctuaries)`、`questScore(quest, t)`、`prereqMet(card, t)`、`region(id)`、`sanctuary(id)`。
 
-服务器上 `~/cantstop`，pm2 进程 `cantstop`（端口 3008），网页在 `/var/www/cantstop`，Caddy `handle_path /cantstop/*`（也在付费网关 `@games` 里）。本机运行 `~/projects/deploy.sh cantstop`（服务器拉 GitHub 上的 main）。
+### 预览局面工厂
 
-pm2 按仓库根目录的 `ecosystem.config.cjs` 直接启动一个 `node --import tsx` 进程跑服务端（不经过 `npm start`）。端口和密钥存在 pm2 里，不进仓库。
+```ts
+import { buildGame, createScene, createSceneRoom, playRound, takeAll, keepAll, autoAdvance, SCENE_NAMES } from "@faraway/game";
+
+// 按名字：start / play / submitted / pick / pick-keep / keep-wait / watch-pick / round8 / round8-keep /
+//         short-deck / timeout / ended / ended-tie / full（6 人第 7 轮）。「我」是 p1。
+const game = createScene("pick-keep", { players: 4, seed: 11 });
+
+// 按参数造任意精确局面（没给的随机补，牌数守恒）：
+const exact = buildGame({
+  players: [{ played: [15], sanctuaries: [16], hand: [49, 12, 1] }, { played: [30] }],
+  round: 2,                 // 第几轮
+  phase: "play",            // play / resolve / ended（ended 自动算分）
+  market: [50, 51, 52],     // 可选
+  sanctuaryDeck: [5, 6, 7], // 牌堆顶（sanctuaryDeckExact: true 时牌堆就只有这几张）
+});
+const next = keepAll(takeAll(playRound(exact, [49, 3])));     // 按指定的牌推进一轮
+
+// 包成网页收到的房间快照（某个座位视角或观战），可以标人机、托管、离线、倒计时：
+const room = createSceneRoom(game, { viewer: "p1", bots: ["p2"], auto: ["p3"], offline: ["p4"], turnRemainingMs: 8000 });
+```
+
+`createGame(players, seed, options, overrides, stack)` 的 `stack = { hands, regionDeck, sanctuaryDeck }` 可以指定发牌（教程剧本用）。
+
+## 流水线状态
+
+- 引擎和服务器：完成（2026-10-11）。

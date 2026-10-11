@@ -284,7 +284,7 @@ function App() {
       <section className="welcome-grid">
         <div className="welcome-copy">
           <div className="eyebrow"><span className="eyebrow-line" /> 在线对战 · 2–4 人 · 测试版</div>
-          <h1>欲罢不能</h1>
+          <h1>遥远之地</h1>
           <p className="welcome-description">
             掷 4 颗骰子，两两分组，带着 3 个登山者往 2–12 号登山路上爬。
             每爬一步都要选：再掷一次继续冒险，还是收手扎营保住进度？贪心爆掉，这回合就白爬了。
@@ -404,9 +404,9 @@ function App() {
 
 function Brand() {
   return (
-    <a className="brand" href={import.meta.env.BASE_URL} aria-label="欲罢不能首页">
+    <a className="brand" href={import.meta.env.BASE_URL} aria-label="遥远之地首页">
       <span className="brand-mark" aria-hidden="true"><i /><i /><i /></span>
-      <span className="brand-name">欲罢不能<span> CAN'T STOP</span></span>
+      <span className="brand-name">遥远之地<span> FAR LANDS</span></span>
     </a>
   );
 }
