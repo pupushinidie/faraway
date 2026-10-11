@@ -139,7 +139,16 @@ const room = createSceneRoom(game, { viewer: "p1", bots: ["p2"], auto: ["p3"], o
 
 - 引擎和服务器：完成（2026-10-11）。
 - 人机：完成（2026-10-11）。
-- 界面：完成（2026-10-11）。预览页 `http://localhost:5299/preview.html?s=<场景>`（参数见 `apps/web/src/preview.tsx` 开头）；排版规则在 `apps/web/src/layout.ts`，卡面在 `cards.tsx`，牌桌在 `GameBoard.tsx`，样式 `faraway.css`、白天调色表 `day-palette.ts`。
+- 界面：完成（2026-10-11）。
+- 新手教程：完成（2026-10-11）。预览页 `http://localhost:5299/preview.html?s=<场景>`（参数见 `apps/web/src/preview.tsx` 开头）；排版规则在 `apps/web/src/layout.ts`，卡面在 `cards.tsx`，牌桌在 `GameBoard.tsx`，样式 `faraway.css`、白天调色表 `day-palette.ts`。
+
+## 新手教程
+
+- 做法照站内统一方案（`~/projects/pipeline/handbook/tutorial-notes.md`）：A 剧本局 + B 练习局和「提示」 + C 第一次遇到的小贴士，向导咕噜嘎。
+- 剧本 `packages/game/src/tutorial.ts`：2 人（你 + 咕噜一号）固定发牌，8 轮的出牌、挑牌、留圣所都按规则书 §9.8 的表走，你最后正好 80 分（规则书例 1）；咕噜一号的 66 要 4 个奇石、右边一个都没有，终局 0 分。单测 `packages/game/test/tutorial.test.ts`。
+- 网页：`apps/web/src/tutorial/`（Coach、gulu、useTutorial、tips、storage、Invite 从谁是牛头王 / 车票之旅复制的共用教练层；`TutorialMode.tsx`、`tutorialGame.ts` 是本游戏的）。首页和等候房间有入口卡，地址带 `?tutorial` 直接打开；从等候房间进来时房主一开局就自动回牌桌。
+- 「提示」：练习局和「只有自己和人机」的房间才有，点一下（或键盘 H）咕噜嘎贴在人机会选的那张卡旁边说理由，并替你选中（还要你自己确认）。
+- 走查：`node ~/projects/qa-reports/tools/faraway-tut.mjs <输出目录> flow|skip|waiting|room [尺寸] [主题]`。
 
 ## 背景音乐 / 声音
 
