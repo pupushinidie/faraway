@@ -67,11 +67,17 @@ BASE_PATH=/faraway/ npm run build
 | `packages/game/src/engine.ts` | 规则引擎：`apply` 纯函数、`applyCommand`（服务端，记动作序列）、`waitingFor`、`legalActions`、`stepKey`、`timeoutTurn`、`baselineCommand`、`redactGameForViewer` / `redactGameForSpectator`、`createGame` |
 | `packages/game/src/scenes.ts` | 预览局面工厂（见下） |
 | `packages/game/src/validate.ts` | `stateProblems`：局面自洽检查（守恒、张数、不卡死） |
-| `packages/game/src/bot.ts` | 人机 `botCommand` |
+| `packages/game/src/bot.ts` | 人机 `botCommand` / `botDecision`（带理由，教程「提示」用） |
 | `apps/server` | Socket.IO 房间服务器（从谁是牛头王移植的同时出牌版：一步一个截止时间、每个人机座位一个计时器、迟到的点击带 step 拒收、限速、挤登录、观战、管理员解散） |
 | `apps/web` | 网页 |
 | `art/` | 美术（暂存目录复制来的 spec、出图脚本、`out/final` 定稿；候选图 gitignore）；定稿放在 `apps/web/public/art/` |
 | `scripts/` | `test-bot.mjs` 陪玩、`spy.mjs` 抓包、`gen-cards.py` 卡表 |
+
+## 人机（「普通」）
+
+- 输入只用这个座位的 redact 视角。估终局分：把以后还会打的牌（手里留下的 + 这一轮要挑的公共牌 + 从没见过的牌里随机补的）接在出牌区右边，以后还会拿的圣所也随机补几张，倒序计分取平均（每个候选 60 个「可能的未来」，同一批共用）。
+- 出牌时算上：比上一张大马上抽圣所（按线索抽几张、挑最有用的）、编号小早挑公共牌（按对手可能出的牌估排第几）、下一轮还能不能比它大。结果自然是要求高的卡早打、给资源的卡晚打。挑公共牌、留圣所各候选同样估分。每一步附一句理由（`botDecision(view, id).reason`）。
+- 强度（`npx tsx scripts/sim-faraway.ts 300`，2026-10-11）：对随机 2 人胜 99.0%（平均 72.9 对 28.0 分）；对 greedy-now（规则书 §9.7 基线）2 人胜 94.3%、3 人 92.7%、4 人 89.7%、6 人 84.3%（公平值 50/33/25/17%），平均 72–78 分对约 40 分；自对弈 2–6 人各 300 局平均每人 71–73 分。决策平均 1.7ms、最坏 7ms。
 
 ## 测试
 
@@ -82,6 +88,7 @@ BASE_PATH=/faraway/ npm run build
 | `packages/game/test/sections.test.ts` | 规则书各节（§3、§4.1–4.4、§5、§6、§7、§9.4）的场景测试，倒序计分「左边没翻开的卡不可见」专门测 |
 | `packages/game/test/random.test.ts` | 2–6 人各 300 局随机对局（含随机超时），每步查守恒、张数、轮次、不卡死，隔几步查隐藏信息 |
 | `packages/game/test/scenes.test.ts` | 预览局面工厂每个局面自洽 |
+| `packages/game/test/bot.test.ts` | 人机只吃 redact 视角（对手暗牌换了决定不变）、关键决策（先打 45、第 8 轮不打 68、留帮前置条件的圣所、先留后挑）、2–6 人各 30 局自对弈步步合法有理由、耗时 |
 | `apps/server/test/flow.test.ts` | 建房选项、全流程到终局和再来一局、计时 key、超时和转托管、重连、迟到的点击、管理员解散、限速、抓包断言 |
 | `apps/server/test/timeouts.test.ts` | 真实计时（TURN_MS=500）没人动也能打完 |
 | `apps/server/test/spectate.test.ts`、`kickSession.test.ts`、`bots*.test.ts` | 观战、挤登录、人机（全站模板） |
@@ -131,3 +138,4 @@ const room = createSceneRoom(game, { viewer: "p1", bots: ["p2"], auto: ["p3"], o
 ## 流水线状态
 
 - 引擎和服务器：完成（2026-10-11）。
+- 人机：完成（2026-10-11）。

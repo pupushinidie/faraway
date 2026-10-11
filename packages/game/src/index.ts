@@ -78,4 +78,5 @@ export {
 } from "./scenes.js";
 export type { ExactSpec, PlayerSpec, SceneName, SceneOptions, SceneRoomOptions } from "./scenes.js";
 export { stateProblems } from "./validate.js";
-export { botCommand } from "./bot.js";
+export { botCommand, botDecision, botHint, botUnknownCards, DEFAULT_BOT_OPTIONS, needScore } from "./bot.js";
+export type { BotDecision, BotOptions } from "./bot.js";
