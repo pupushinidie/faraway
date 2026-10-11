@@ -1,69 +1,88 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { iconArt } from "./art.js";
+import { RegionCardView, SanctuaryCardView } from "./cards.js";
 
-/** 规则说明：用自己的话写，不照搬原版规则书。 */
-function GameRules() {
-  const [open, setOpen] = useState(false);
+/**
+ * 规则说明：一个按钮 + 像素弹窗。用自己的话写，配游戏里的卡图。内容和 README 的规则说明一致。
+ */
+function Icon({ name }: { name: "stone" | "chimera" | "thistle" | "clue" | "night" }) {
+  return <img className="fa-ico" src={iconArt(name)} width={24} height={24} alt="" />;
+}
 
+export function RulesBody() {
   return (
-    <section className={open ? "game-rules open" : "game-rules"}>
-      <button
-        className="game-rules-toggle"
-        type="button"
-        aria-expanded={open}
-        aria-controls="game-rules-panel"
-        onClick={() => setOpen((current) => !current)}
-      >
-        <span aria-hidden="true">✦</span> 游戏规则
-        <i aria-hidden="true">{open ? "收起 ▴" : "展开 ▾"}</i>
-      </button>
+    <div className="fa-rules-body">
+      <section>
+        <h3>一局 8 轮，总分高的赢</h3>
+        <p>每轮大家<b>同时</b>从 3 张手牌里打出 1 张，排在自己出牌区的<b>最右边</b>，出了不能撤回。8 轮后出牌区正好 8 张。</p>
+        <div className="fa-rules-cards">
+          <RegionCardView id={45} cw={128} />
+          <ul>
+            <li>左上：编号（1–68），旁边是昼 / 夜、线索</li>
+            <li>右上：这张卡给的资源 <Icon name="stone" />奇石 <Icon name="chimera" />灵兽 <Icon name="thistle" />蓟草</li>
+            <li>右下：任务（得分方式），上面的小框是<b>前置条件</b>：资源不够，这张卡 0 分</li>
+            <li>底色：地形（菌林、溪谷、石原、岩城）</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h3>每轮三步</h3>
+        <ol>
+          <li><b>出牌</b>：大家都出好了一起翻开。</li>
+          <li><b>发现圣所</b>：打出的编号比自己<b>上一张</b>大，就抽 1 + 线索数张圣所卡，留 1 张（其余放回）。只和紧挨着的上一张比；第 1 轮没有圣所。</li>
+          <li><b>挑公共牌</b>：按这一轮打出的编号<b>从小到大</b>轮流挑 1 张补回手里。剩下的 1 张移出游戏。第 8 轮不挑。</li>
+        </ol>
+      </section>
+      <section>
+        <h3>倒序计分（最重要）</h3>
+        <p>8 轮打完，从<b>最右边往左</b>一张张翻开计分：每张卡只看得到<b>自己、它右边的卡和全部圣所</b>，左边的卡不算。资源用了不会消失，可以同时满足好几张卡。</p>
+        <p>所以：要求高的卡<b>早打</b>（放左边，右边会越来越多），只给资源的卡<b>晚打</b>（放右边）。</p>
+        <div className="fa-rules-cards">
+          <SanctuaryCardView id={11} sw={80} sh={120} />
+          <ul>
+            <li>圣所卡计分时一直看得到；有颜色的算一张那种地形的卡，月亮 <Icon name="night" /> 算一个夜。</li>
+            <li>圣所上的线索 <Icon name="clue" /> 让以后发现圣所时多抽一张。</li>
+            <li>8 张区域卡翻完，再按全部卡算圣所的任务分。</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h3>其他</h3>
+        <ul>
+          <li>总分并列：出牌区里有编号最小那张卡的人赢。</li>
+          <li>出牌 60 秒、挑牌和留圣所 30 秒，超时由人机替你做；连续超时 2 次转托管（人机代打），点「取消托管」交还。</li>
+          <li>辅助显示（开房时可关）：手牌下标能不能拿圣所、能抽几张；出牌区每张卡下标按现在算的分，条件不够标红。</li>
+        </ul>
+      </section>
+    </div>
+  );
+}
 
+export function GameRules({ className = "quiet-button" }: { className?: string }) {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+  return (
+    <>
+      <button className={`${className} fa-rules-button`} type="button" aria-expanded={open} onClick={() => setOpen(true)} data-tutorial="rules-button">规则</button>
       {open && (
-        <div className="game-rules-panel" id="game-rules-panel">
-          <div className="game-rules-block">
-            <h3>目标</h3>
-            <p>
-              山上有 11 条登山路，编号 2–12（两颗骰子的和）。点数越常见的路越长：7 号最长 13 格，2 号和 12 号只有 3 格。
-              谁先<b>登顶 3 条路</b>谁就赢。
-            </p>
-          </div>
-
-          <div className="game-rules-block">
-            <h3>轮到你时</h3>
-            <ul>
-              <li><b>掷 4 颗骰子</b>，把它们分成两对，两对的和就是这次往上爬的两条路。比如 2、3、4、5 可以走 5 和 9、6 和 8，或者 7 号连爬 2 格。</li>
-              <li>你有 <b>3 个登山者</b>：每回合最多同时爬 3 条不同的路。在已有登山者的路上往上爬 1 格；新上一条路时，登山者从你在这条路的营地上方一格出发（还没营地就从最底下一格）。</li>
-              <li>两个和都能走就必须都走；只能走其中一个时任选一个。</li>
-              <li>每爬完一次，选择<b>再掷</b>继续冒险，或者<b>收手扎营</b>：登山者的位置换成你的营地小旗，下回合从这里接着爬。</li>
-            </ul>
-          </div>
-
-          <div className="game-rules-block">
-            <h3>爆掉</h3>
-            <p>
-              如果这把骰子怎么分组都走不了（路已经被占领、登山者已经在顶上、或者 3 个登山者都在别的路上），就<b>爆掉</b>：
-              这回合爬的全部作废，登山者摔回山脚。之前扎好的营地不受影响。
-            </p>
-          </div>
-
-          <div className="game-rules-block">
-            <h3>登顶</h3>
-            <ul>
-              <li>登山者到了一条路的最顶格，<b>收手时</b>就占领这条路：插上你的大旗，其他人在这条路上的营地全部撤下，这条路之后谁都不能再走。</li>
-              <li>到了顶格还继续掷骰，爆掉的话这次登顶也一起作废。</li>
-            </ul>
-          </div>
-
-          <div className="game-rules-block">
-            <h3>其他</h3>
-            <ul>
-              <li>每一步限时 45 秒：还没掷骰就超时会跳过这回合；掷了骰子以后超时，会替你选第一种走法并收手。</li>
-              <li>收手前可以看到「再掷爆掉的概率」，不想看可以隐藏。</li>
-              <li>骰子在服务器上掷，谁也做不了手脚。掉线后用原昵称和房间码可以回到自己的座位。</li>
-            </ul>
-          </div>
+        <div className="gm-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setOpen(false); }}>
+          <section className="gm-panel fa-rules" role="dialog" aria-modal="true" aria-labelledby="fa-rules-title">
+            <div className="fa-rules-head">
+              <h2 id="fa-rules-title">遥远之地 · 规则</h2>
+              <button className="quiet-button" type="button" onClick={() => setOpen(false)}>关闭</button>
+            </div>
+            <RulesBody />
+          </section>
         </div>
       )}
-    </section>
+    </>
   );
 }
 

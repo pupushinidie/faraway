@@ -1,0 +1,377 @@
+/*
+ * 遥远之地的牌桌和卡面（叠在 app-pixel.css 的晴空奇境夜紫皮肤上）。
+ * 卡面底图都是 1 倍原图居中裁切，编号、图标、任务、分数用代码画。字号只用 12 的整数倍：编号、分数 24px。
+ * 白天版由 day-theme.ts 换色生成；牌桌上的卡面、小牌、标签保持原色（day-palette.ts 的 keep）。
+ */
+
+/* ---------- 整个牌桌 ---------- */
+.app-shell.fa-game { width: 100%; max-width: none; margin: 0; min-height: 100vh; }
+.app-shell.fa-game,
+.app-shell.fa-page {
+  background:
+    linear-gradient(rgba(20, 14, 30, 0.5), rgba(20, 14, 30, 0.5)),
+    var(--bg-night) center / 1536px 864px no-repeat,
+    #1c1430;
+  image-rendering: pixelated;
+}
+.fa-board {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100vh;
+  padding: 0 16px 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.fa-board.phone { height: auto; min-height: 100vh; overflow: visible; padding: 0 12px 16px; }
+.app-shell .fa-topbar { flex: 0 0 auto; height: 52px; gap: 12px; white-space: nowrap; }
+.app-shell .fa-topbar .topbar-right { gap: 8px; }
+.app-shell .fa-topbar .brand-name { font-size: 24px; }
+.fa-brand-icon, .fa-ico, .fa-resident { image-rendering: pixelated; }
+.fa-round { color: var(--muted); font-size: 12px; }
+.fa-round b { color: var(--gold); font-size: 24px; font-weight: 400; }
+
+/* 牌桌上的几块面板：半透明深底 + 像素边 */
+.fa-opp, .fa-status, .fa-market, .fa-mine, .fa-hand, .fa-action, .fa-sancts {
+  background: rgba(28, 20, 48, 0.86);
+  box-shadow:
+    0 calc(var(--px) * -1) 0 0 var(--edge), 0 var(--px) 0 0 var(--edge),
+    calc(var(--px) * -1) 0 0 0 var(--edge), var(--px) 0 0 0 var(--edge),
+    inset var(--px) var(--px) 0 0 var(--rim), inset calc(var(--px) * -1) calc(var(--px) * -1) 0 0 var(--shade);
+}
+.fa-label { display: flex; gap: 8px; align-items: baseline; height: 16px; color: var(--gold); font-size: 12px; line-height: 16px; white-space: nowrap; }
+.fa-label small { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
+.fa-cards { display: flex; gap: 12px; align-items: flex-start; padding: 8px 6px 0; }
+.fa-empty { display: flex; align-items: center; height: var(--cw); padding: 0 12px; color: var(--muted); font-size: 12px; }
+
+/* ---------- 区域卡 ---------- */
+.fa-rc {
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--cw);
+  height: var(--cw);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #2b1d14;
+  font: inherit;
+  text-align: left;
+  background: var(--art) center / var(--art-size) no-repeat, #2b1d14;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 3px #f4e4c1, 0 0 0 5px #2b1d14;
+  overflow: hidden;
+}
+button.fa-rc { cursor: pointer; }
+.fa-rc::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 6px;
+  background: var(--swatch) 0 0 / 16px 16px repeat;
+  image-rendering: pixelated;
+}
+.fa-rc.back::after { display: none; }
+.fa-rc-top { position: absolute; left: 2px; top: 2px; display: flex; align-items: center; gap: 2px; }
+.fa-num {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 3px;
+  box-sizing: border-box;
+  color: #2b1d14;
+  background: #fffaec;
+  box-shadow: 0 0 0 2px #2b1d14;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+}
+.fa-rc .fa-ico, .fa-sc .fa-ico { display: block; background: #fffaec; box-shadow: 0 0 0 1px #2b1d14; }
+.fa-wonders { position: absolute; right: 2px; top: 2px; display: flex; gap: 2px; }
+.fa-rc.t-sm .fa-wonders { top: 32px; right: 1px; flex-direction: column; }
+.fa-rc.t-md .fa-rc-top { flex-wrap: wrap; max-width: calc(var(--cw) - 20px); }
+.fa-rc.t-md .fa-wonders { flex-direction: column; }
+.fa-resident { position: absolute; left: 2px; bottom: 6px; }
+.fa-rc-bottom { position: absolute; right: 2px; bottom: 8px; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.fa-req { display: flex; gap: 1px; padding: 1px 2px; background: #fff2b8; box-shadow: 0 0 0 1px #2b1d14; }
+.fa-req .fa-ico { box-shadow: none; background: transparent; }
+.fa-quest { display: flex; align-items: center; gap: 2px; height: 28px; padding: 0 3px; color: #2b1d14; background: #fffaec; box-shadow: 0 0 0 2px #2b1d14; }
+.fa-quest b { font-size: 24px; font-weight: 400; line-height: 28px; }
+.fa-quest .fa-ico { box-shadow: none; }
+.fa-rc.t-md .fa-quest { height: 26px; }
+
+/* 能点、选中、刚翻开、幽灵（已出未翻） */
+.fa-rc.can, .fa-sc.can { box-shadow: 0 0 0 3px #f4e4c1, 0 0 0 5px #2b1d14, 0 0 0 7px var(--gold); }
+.fa-rc.can:hover, .fa-sc.can:hover { transform: translateY(-4px); }
+.fa-rc.picked, .fa-sc.picked { transform: translateY(-8px); box-shadow: 0 0 0 3px #fff2b8, 0 0 0 5px #2b1d14, 0 0 0 9px #7fe3a0; }
+.fa-rc.ghost { filter: grayscale(0.6) brightness(0.7); }
+.fa-rc.fresh { animation: fa-drop 0.5s steps(5, jump-none) both; }
+@keyframes fa-drop { from { transform: translateY(-28px); } to { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .fa-rc.fresh { animation: none; } }
+
+/* ---------- 圣所卡 ---------- */
+.fa-sc {
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--sw);
+  height: var(--sh);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #2b1d14;
+  font: inherit;
+  background: var(--art) center / var(--art-size) no-repeat, #2b1d14;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 3px #f4e4c1, 0 0 0 5px #2b1d14;
+  overflow: hidden;
+}
+button.fa-sc { cursor: pointer; }
+.fa-sc::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: var(--swatch) 0 0 / 16px 16px repeat; }
+.fa-sc-top { position: absolute; left: 2px; top: 2px; display: flex; flex-direction: column; gap: 2px; }
+.fa-sc .fa-wonders { flex-direction: column; }
+.fa-sc .fa-rc-bottom { right: 2px; bottom: 8px; }
+
+/* ---------- 小牌（对手出牌区、终局小屏） ---------- */
+.fa-chip {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  color: #2b1d14;
+  font: inherit;
+  background: linear-gradient(rgba(255, 250, 236, 0.75), rgba(255, 250, 236, 0.75)), var(--swatch) 0 0 / 16px 16px repeat;
+  box-shadow: 0 0 0 2px #2b1d14;
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+.fa-chip b { font-size: 24px; font-weight: 400; line-height: 26px; letter-spacing: -2px; }
+.fa-chip span { display: flex; height: 12px; }
+.fa-chip.night { background: linear-gradient(rgba(214, 200, 255, 0.82), rgba(214, 200, 255, 0.82)), var(--swatch) 0 0 / 16px 16px repeat; }
+.fa-chip.empty { background: transparent; box-shadow: inset 0 0 0 2px rgba(196, 184, 224, 0.35); cursor: default; }
+.fa-chip.hidden { filter: brightness(0.25); }
+.fa-chip .fa-ico, .fa-schip .fa-ico { display: block; }
+.fa-schip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 2px;
+  border: 0;
+  color: #2b1d14;
+  font: inherit;
+  background: linear-gradient(rgba(255, 250, 236, 0.7), rgba(255, 250, 236, 0.7)), var(--swatch) 0 0 / 16px 16px repeat;
+  box-shadow: 0 0 0 2px #2b1d14;
+  cursor: pointer;
+}
+.fa-schip i { font-size: 12px; font-style: normal; line-height: 12px; }
+.fa-schip .fa-sq { display: inline-flex; align-items: center; gap: 1px; margin-left: 2px; padding-left: 2px; box-shadow: -1px 0 0 #2b1d14; }
+
+/* ---------- 卡下面的分数条 ---------- */
+.fa-played { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.fa-pts {
+  position: relative;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  color: var(--gold);
+  background: rgba(13, 8, 24, 0.85);
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  white-space: nowrap;
+}
+.fa-pts.bad { color: #ff8a7a; }
+.fa-pts.good { color: #7fe3a0; }
+.fa-pts.off, .fa-pts.wait { color: var(--muted); font-size: 12px; }
+.fa-pts small { margin-left: 2px; font-size: 12px; }
+
+/* ---------- 对手条 ---------- */
+.fa-opps { display: grid; grid-template-columns: repeat(var(--opp-cols), minmax(0, 1fr)); gap: 6px; flex: 0 0 auto; }
+.fa-opp { display: flex; flex-direction: column; gap: 4px; height: 104px; padding: 6px 8px; box-sizing: border-box; min-width: 0; }
+.fa-opp.picking { box-shadow: 0 0 0 var(--px) var(--edge), inset 0 0 0 var(--px) var(--gold); }
+.fa-opp-head { display: flex; align-items: center; gap: 6px; height: 28px; min-width: 0; white-space: nowrap; }
+.fa-opp-name {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0 6px;
+  border: 0;
+  color: #1c1430;
+  background: var(--seat);
+  font: inherit;
+  font-size: 12px;
+  line-height: 20px;
+  text-overflow: ellipsis;
+}
+.fa-opp-name:disabled { cursor: default; }
+.fa-opp-state { color: var(--muted); font-size: 12px; }
+.fa-opp-state.live { color: var(--gold); }
+.fa-opp-score { margin-left: auto; color: var(--muted); font-size: 12px; }
+.fa-opp-score b { color: var(--gold); font-size: 24px; font-weight: 400; }
+.fa-opp-cards { display: flex; flex-wrap: wrap; gap: 4px 2px; align-items: flex-start; padding: 0 2px; }
+.fa-opp-sancts { display: flex; gap: 4px; margin-left: 4px; }
+
+.fa-tag { padding: 0 4px; color: #1c1430; background: #c4b8e0; font-size: 12px; font-style: normal; line-height: 18px; }
+.fa-tag.bot { background: #8ec0ff; }
+.fa-tag.auto { background: #f0c050; }
+.fa-tag.warn { background: #ff8a7a; }
+.fa-tag.watch { background: #9be06a; }
+
+/* ---------- 中间行：状态 + 公共牌 ---------- */
+.fa-center { display: flex; gap: 8px; flex: 0 0 auto; }
+.fa-status { width: var(--status-w); flex: 0 0 auto; display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; box-sizing: border-box; min-width: 0; }
+.fa-status.mine { box-shadow: 0 0 0 var(--px) var(--edge), inset 0 0 0 var(--px) var(--gold); }
+.fa-status-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.fa-status strong { min-width: 0; overflow: hidden; color: var(--gold); font-size: 24px; font-weight: 400; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.fa-board.desk .fa-status { height: calc(var(--cw) + 34px); overflow: hidden; }
+.fa-status.tight p { display: none; }
+.fa-decks { color: var(--muted); font-size: 12px; white-space: nowrap; }
+.fa-board.phone .fa-status.tight p { display: none; }
+.fa-decks { display: none; }
+.fa-status p { margin: 0; color: var(--text); font-size: 12px; line-height: 1.5; }
+.fa-timer { flex: 0 0 auto; color: var(--text); font-size: 24px; line-height: 1.2; }
+.fa-timer small { font-size: 12px; color: var(--muted); }
+.fa-timer.hurry { color: #ff8a7a; }
+.fa-order { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0 0; padding: 0; list-style: none; }
+.fa-order li { display: flex; align-items: center; gap: 3px; padding: 0 4px; color: var(--text); background: rgba(13, 8, 24, 0.6); box-shadow: inset 3px 0 0 var(--seat); font-size: 12px; line-height: 24px; }
+.fa-order li b { color: var(--gold); font-size: 12px; font-weight: 400; }
+.fa-order li.now { background: var(--gold); color: #1c1430; }
+.fa-order li.now b { color: #1c1430; }
+.fa-order li.done { opacity: 0.55; }
+.fa-order li i { padding: 0 2px; color: #1c1430; background: #7fe3a0; font-size: 12px; font-style: normal; line-height: 16px; }
+.fa-removed { display: inline-flex; gap: 2px; align-items: center; margin-left: auto; color: var(--muted); font-size: 12px; overflow: hidden; }
+.fa-removed button { padding: 0 3px; border: 0; color: var(--text); background: rgba(13, 8, 24, 0.6); font: inherit; font-size: 12px; cursor: pointer; }
+.fa-market { flex: 1; min-width: 0; padding: 4px 8px 6px; }
+
+/* ---------- 我的出牌区 ---------- */
+.fa-mine { display: flex; align-items: center; gap: 12px; padding: 4px 8px 6px; flex: 0 0 auto; }
+.fa-mine-head { display: flex; flex-direction: column; gap: 4px; width: 120px; flex: 0 0 auto; }
+.fa-who { color: #1c1430; background: var(--seat); padding: 0 6px; font-size: 12px; line-height: 20px; align-self: flex-start; white-space: nowrap; }
+.fa-score { color: var(--muted); font-size: 12px; display: flex; align-items: baseline; gap: 2px; flex-wrap: wrap; }
+.fa-score b { color: var(--gold); font-size: 48px; font-weight: 400; line-height: 1; }
+.fa-score small { width: 100%; font-size: 12px; }
+.fa-row { display: flex; gap: 12px; align-items: flex-start; padding: 6px 6px 0; }
+.fa-slot {
+  display: flex; align-items: center; justify-content: center;
+  width: var(--row-cw); height: var(--row-cw);
+  color: rgba(196, 184, 224, 0.5);
+  box-shadow: inset 0 0 0 2px rgba(196, 184, 224, 0.3);
+  font-size: 24px;
+}
+.fa-slot.pending { box-shadow: none; }
+.fa-slot .fa-rc { margin: 0; }
+
+/* ---------- 手牌行 ---------- */
+.fa-handrow { display: flex; gap: 8px; align-items: stretch; flex: 0 0 auto; min-height: 0; }
+.fa-hand { padding: 4px 8px 6px; flex: 0 0 auto; }
+.fa-action { width: var(--action-w); flex: 1 1 var(--action-w); min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 8px 12px; box-sizing: border-box; }
+.fa-action-text { margin: 0; color: var(--text); font-size: 12px; line-height: 1.5; }
+.fa-action-buttons { display: flex; gap: 8px; }
+.app-shell .fa-confirm { width: auto; margin: 0; padding: 8px 14px; font-size: 24px; line-height: 1.2; white-space: nowrap; }
+.fa-hint { display: flex; flex-direction: column; gap: 6px; }
+.fa-hint .quiet-button { align-self: flex-start; }
+.fa-hint-text { margin: 0; padding: 6px 8px; color: #1c1430; background: #fff2b8; font-size: 12px; line-height: 1.5; }
+.fa-sancts { padding: 4px 8px 6px; flex: 0 1 auto; min-width: 0; overflow: hidden; }
+.fa-sancts .fa-cards { gap: 12px; }
+
+/* ---------- 抽到的圣所（在操作区里） ---------- */
+.fa-action.has-offer { flex: 1 0 auto; justify-content: flex-start; padding-top: 4px; }
+.fa-action.has-offer ~ .fa-sancts { flex: 0 1 auto; }
+.fa-offer { display: flex; flex-direction: column; }
+.fa-offer-head { display: flex; align-items: center; gap: 8px; }
+.fa-offer-head strong { color: var(--gold); font-size: 24px; font-weight: 400; line-height: 1.2; }
+.fa-offer-head p { margin: 0; color: var(--muted); font-size: 12px; }
+.fa-offer .fa-cards { padding-top: 6px; }
+.fa-offer .fa-fx-sanct { width: 32px; height: 32px; background-size: 256px 32px; }
+.fa-note { margin: 4px 0 0; color: #ff8a7a; font-size: 12px; }
+.fa-fx-sanct { width: 64px; height: 64px; flex: 0 0 auto; background: var(--fx-sanctuary) 0 0 / 800% 100% no-repeat; image-rendering: pixelated; animation: fa-fx 0.56s steps(7, jump-none) 1 both; }
+@keyframes fa-fx { from { background-position: 0 0; } to { background-position: 100% 0; } }
+.fa-fx-score { position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; pointer-events: none; background: var(--fx-score) 0 0 / 800% 100% no-repeat; image-rendering: pixelated; animation: fa-fx 0.48s steps(7, jump-none) 1 both; }
+@media (prefers-reduced-motion: reduce) { .fa-fx-sanct, .fa-fx-score { animation: none; background-position: 100% 0; } }
+
+/* ---------- 提示条、托管条、聊天抽屉、详情 ---------- */
+.fa-banner { position: absolute; z-index: 20; top: 52px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; gap: 12px; padding: 4px 8px; color: #1c1430; background: #f0c050; font-size: 12px; }
+.fa-toast { position: absolute; z-index: 40; left: 50%; bottom: 16px; transform: translateX(-50%); padding: 8px 14px; color: #1c1430; background: #b7f0c0; box-shadow: 0 0 0 2px #0d0818; font-size: 12px; white-space: nowrap; }
+.fa-toast.error { background: #ffd8d0; }
+.fa-chat { position: fixed; z-index: 35; top: 52px; right: 0; bottom: 0; width: min(360px, 100%); display: none; flex-direction: column; gap: 8px; padding: 8px; box-sizing: border-box; background: var(--panel); box-shadow: -2px 0 0 var(--edge); }
+.fa-chat.open { display: flex; }
+.fa-chat-head { display: flex; align-items: center; justify-content: space-between; color: var(--gold); font-size: 12px; }
+.fa-chat .room-chat { flex: 1; min-height: 0; }
+.fa-chat-toggle.on { color: var(--gold); }
+.app-shell .fa-detail { width: auto; max-width: 380px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.app-shell .fa-detail .primary-button { width: auto; margin: 0; }
+
+/* ---------- 终局 ---------- */
+.app-shell .fa-final { width: min(1180px, calc(100vw - 32px)); max-height: calc(100vh - 24px); display: flex; flex-direction: column; gap: 8px; padding: 14px 18px; box-sizing: border-box; overflow: auto; }
+.fa-final-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.app-shell .fa-final-head h2 { margin: 0; }
+.app-shell .fa-final-head p { flex: 1; }
+.fa-final-rows { display: flex; flex-direction: column; gap: 6px; }
+.fa-final-row { display: flex; align-items: center; gap: 10px; padding: 4px 6px; background: rgba(13, 8, 24, 0.5); box-shadow: inset 4px 0 0 var(--seat); }
+.fa-final-row.me { background: rgba(122, 104, 184, 0.35); }
+.fa-final-row.winner { box-shadow: inset 4px 0 0 var(--seat), inset 0 0 0 2px var(--gold); }
+.fa-final-who { display: flex; flex-direction: column; gap: 2px; width: 150px; flex: 0 0 auto; min-width: 0; }
+.fa-rank { color: var(--gold); font-size: 24px; line-height: 1; }
+.fa-final-name { overflow: hidden; color: var(--text); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.fa-final-total { color: var(--muted); font-size: 12px; }
+.fa-final-total b { color: var(--gold); font-size: 36px; font-weight: 400; line-height: 1; }
+.fa-final-cards { display: flex; gap: 6px; align-items: flex-start; flex-wrap: nowrap; min-width: 0; --cw: var(--fcw); }
+.fa-final-sancts { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; max-width: 330px; margin-left: 6px; }
+.fa-final-sanct { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.fa-final-sanct em { color: var(--gold); font-size: 24px; font-style: normal; line-height: 24px; }
+.fa-final-sum { color: var(--muted); font-size: 12px; }
+.fa-final-sum b { color: var(--gold); font-size: 24px; font-weight: 400; }
+.fa-rematch { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--text); font-size: 12px; }
+.app-shell .fa-rematch .gm-panel-actions { margin-top: 0; }
+
+/* ---------- 规则弹窗、首页卡面一览 ---------- */
+.app-shell .fa-rules { width: min(760px, calc(100vw - 24px)); max-height: calc(100vh - 32px); overflow: auto; }
+.fa-rules-head { display: flex; align-items: center; justify-content: space-between; }
+.app-shell .fa-rules-head h2 { margin: 0; }
+.fa-rules-body h3 { margin: 12px 0 4px; color: var(--gold); font-size: 24px; font-weight: 400; }
+.fa-rules-body p, .fa-rules-body li { color: var(--text); font-size: 12px; line-height: 1.8; }
+.fa-rules-body b { color: var(--gold); font-weight: 400; }
+.fa-rules-body ol, .fa-rules-body ul { margin: 0; padding-left: 20px; }
+.fa-rules-body .fa-ico { vertical-align: middle; }
+.fa-rules-cards { display: flex; gap: 16px; align-items: center; margin: 8px 0; }
+.fa-rules-cards { flex-wrap: wrap; }
+.fa-rules-cards ul { flex: 1 1 220px; min-width: 0; }
+.fa-kinds { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
+.fa-kinds figure { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 0; max-width: 140px; }
+.fa-kinds figcaption { color: var(--text); font-size: 12px; text-align: center; line-height: 1.5; }
+
+/* ---------- 手机 ---------- */
+.fa-board.phone .fa-topbar { height: 48px; }
+.fa-board.phone .fa-topbar .connection-status,
+.fa-board.phone .fa-topbar .brand-name { display: none; }
+.fa-board.phone .fa-round b { font-size: 24px; }
+.fa-board.phone .fa-status { width: auto; }
+.fa-board.phone .fa-handrow { flex-direction: column; }
+.fa-board.phone .fa-hand { --cw: var(--hand-cw); }
+.fa-board.phone .fa-action { width: auto; flex: 0 0 auto; }
+.fa-board.phone .fa-sancts { order: 3; }
+.fa-board.phone .fa-sancts .fa-cards { flex-wrap: wrap; gap: 10px; }
+.fa-board.phone .fa-market .fa-cards { flex-wrap: wrap; gap: 10px; }
+.fa-board.phone .fa-mine { flex-direction: column; align-items: stretch; gap: 4px; }
+.fa-board.phone .fa-mine-head { flex-direction: row; width: auto; align-items: baseline; gap: 8px; }
+.fa-board.phone .fa-score b { font-size: 24px; }
+.fa-board.phone .fa-score small { width: auto; }
+.fa-board.phone .fa-row { gap: 8px; padding: 4px 4px 0; }
+.fa-board.phone .fa-pts { min-width: 24px; padding: 0 2px; }
+.fa-board.phone .fa-opps { grid-template-columns: 1fr; }
+.fa-board.phone .fa-offer { top: 52px; }
+.fa-board.phone .fa-cards { padding-top: 4px; }
+.fa-board.phone .fa-hand .fa-cards { justify-content: center; }
+.app-shell .fa-final.phone .fa-final-row { flex-direction: column; align-items: stretch; }
+.app-shell .fa-final.phone .fa-final-who { flex-direction: row; align-items: baseline; gap: 8px; width: auto; }
+.app-shell .fa-final.phone .fa-final-cards { flex-wrap: wrap; gap: 2px; }
+.app-shell .fa-final.phone .fa-final-total b { font-size: 24px; }
+.fa-board.phone .fa-pts small { display: none; }
+.fa-board.phone .fa-mine .fa-pts { min-width: 0; padding: 0 2px; }
+.fa-board.phone .fa-empty { height: auto; padding: 8px 12px; }

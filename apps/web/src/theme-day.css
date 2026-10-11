@@ -1,12 +1,19 @@
 /*
- * 白天版手调的部分。大部分白天样式由 day-theme.ts 从 app-pixel.css、cantstop.css 换色生成，
- * 这里只放机械换色不合适的地方；选择器都以 :root[data-theme="day"] 开头。
+ * 白天版手调的部分。大部分白天样式由 day-theme.ts 从 app-pixel.css、fa-pages.css、faraway.css 换色生成，
+ * 这里只放机械换色不合适的地方；选择器都以 :root[data-theme="day"] 开头，比生成的规则多一级，压得过它们。
  */
 :root[data-theme="day"] { color-scheme: light; }
-:root[data-theme="day"] .app-shell * { scrollbar-color: #aebad0 var(--bg); }
+:root[data-theme="day"] .app-shell * { scrollbar-color: #c8b8e0 var(--bg); }
 
-/* 雪山场景里叠着的提示条、横幅还是深底，字和描边用回夜间的颜色 */
-:root[data-theme="day"] .cs-stage { --text: #eef3fb; --muted: #93a3bd; --edge: #04060c; --shade: #080c17; }
+/* 牌桌和首页的背景换成白天那张图（生成的规则会照抄夜间的图） */
+:root[data-theme="day"] body .app-shell.fa-game,
+:root[data-theme="day"] body .app-shell.fa-page {
+  background:
+    linear-gradient(rgba(255, 250, 240, 0.45), rgba(255, 250, 240, 0.45)),
+    var(--bg-day) center / 1536px 864px no-repeat,
+    #fff8ec;
+}
+:root[data-theme="day"] body .fa-hero-art { background-image: var(--bg-day); }
 
-/* 登山队里还没占领的路线格：夜间的亮边在白底上看不见，换成灰蓝描边 */
-:root[data-theme="day"] .cs-slot { box-shadow: inset 0 0 0 var(--px) #aebad0; }
+/* 对手小牌的空格、出牌区的空格：白底上用浅紫虚线 */
+:root[data-theme="day"] body .fa-chip.empty { box-shadow: inset 0 0 0 2px #c8b8e0; }

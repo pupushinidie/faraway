@@ -1,0 +1,192 @@
+/*
+ * 首页和等候房间（遥远之地的排版；颜色、像素边框沿用 app-pixel.css）。
+ * 桌面三种尺寸一屏放下：在线牌桌、聊天这类可能很长的东西在自己的格子里滚动。
+ */
+.app-shell.fa-page { width: 100%; max-width: none; margin: 0; height: 100vh; min-height: 0; padding: 0 16px 12px; box-sizing: border-box; }
+.app-shell .fa-pagebar { flex: 0 0 auto; height: 56px; gap: 12px; white-space: nowrap; }
+.app-shell .fa-pagebar .topbar-right { gap: 10px; }
+.app-shell .brand { gap: 8px; }
+.fa-brand-icon { image-rendering: pixelated; }
+.app-shell .brand-name { font-size: 24px; }
+.app-shell .entry-card-heading { margin-bottom: 8px; }
+.fa-lamp { vertical-align: middle; }
+
+/* ---------- 首页 ---------- */
+.fa-home {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 536px minmax(360px, 440px) minmax(280px, 1fr);
+  grid-template-areas: "hero entry rooms";
+  grid-template-rows: minmax(0, 1fr);
+  gap: 16px;
+  min-height: 0;
+  padding-top: 12px;
+}
+.fa-home-hero { grid-area: hero; display: flex; flex-direction: column; gap: 12px; min-height: 0; padding: 12px; background: rgba(28, 20, 48, 0.86); box-shadow: 0 0 0 var(--px) var(--edge); }
+.fa-entry { grid-area: entry; align-self: center; }
+.fa-home-hero { align-self: center; }
+.fa-home-rooms { grid-area: rooms; min-height: 0; overflow-y: auto; }
+.fa-hero-art {
+  position: relative;
+  width: 512px;
+  height: 288px;
+  flex: 0 0 auto;
+  background: var(--bg-night) center / 512px 288px no-repeat, #2a1f4a;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 var(--px) var(--edge), inset 0 0 0 var(--px) #7a68b8;
+}
+.app-shell .fa-hero-art h1 {
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  margin: 0;
+  color: var(--gold);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1;
+  text-shadow: 4px 4px 0 var(--edge), -2px -2px 0 var(--edge), 2px -2px 0 var(--edge), -2px 2px 0 var(--edge);
+}
+.fa-lead { margin: 0; color: var(--text); font-size: 12px; line-height: 2; }
+.fa-lead b { color: var(--gold); font-weight: 400; }
+.fa-home-facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.fa-home-facts span { padding: 2px 8px; color: var(--muted); background: var(--panel-2); font-size: 12px; }
+.fa-kinds { display: flex; flex-wrap: wrap; gap: 8px; }
+.fa-kinds figure { display: flex; flex-direction: column; align-items: center; gap: 2px; margin: 0; }
+.fa-kinds figcaption { display: flex; align-items: center; gap: 2px; color: var(--text); font-size: 12px; }
+.fa-kinds img, .fa-kinds .fa-card { image-rendering: pixelated; }
+.fa-card { display: inline-block; background-repeat: no-repeat; }
+.app-shell .fa-entry { padding: 16px 20px; }
+.app-shell .fa-entry .entry-form { margin-top: 12px; }
+.app-shell .fa-entry .field-label-spaced { margin-top: 12px; }
+.app-shell .fa-entry h2 { margin: 0; }
+.fa-capacity { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px; }
+.app-shell .fa-capacity .capacity-option { height: 40px; padding: 0; }
+.app-shell .fa-capacity .capacity-option strong { font-size: 24px; }
+.app-shell .fa-entry-submit { width: 100%; margin-top: 14px; font-size: 24px; }
+.app-shell .fa-home-rooms .online-rooms { margin: 0; padding: 0; border-top: 0; }
+.app-shell .fa-home-rooms .online-rooms-heading { margin-bottom: 10px; }
+.app-shell .fa-home-rooms .online-rooms-heading h2 { margin: 2px 0 0; }
+.app-shell .fa-home-rooms .online-rooms-grid { grid-template-columns: 1fr; gap: 10px; }
+
+/* 开房选项 */
+.fa-options { display: grid; gap: 8px; }
+.fa-option { display: flex; align-items: center; gap: 8px; min-height: 32px; }
+.fa-option-name { flex: 0 0 60px; color: var(--muted); font-size: 12px; }
+.fa-option-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+.fa-stepper { display: flex; align-items: center; gap: 6px; }
+.app-shell .fa-stepper .quiet-button { width: 32px; height: 32px; padding: 0; font-size: 24px; line-height: 1; }
+.app-shell .fa-stepper .text-input { width: 64px; height: 32px; padding: 0 6px; font-size: 24px; text-align: center; -moz-appearance: textfield; }
+.fa-stepper input::-webkit-outer-spin-button, .fa-stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* ---------- 等候房间 ---------- */
+.fa-room {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(400px, 640px) minmax(250px, 1fr);
+  gap: 16px;
+  min-height: 0;
+  padding-top: 12px;
+}
+.fa-room-info, .fa-room-side { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.app-shell .fa-room .room-panel { padding: 14px 16px; }
+.fa-code-panel { display: flex; flex-direction: column; gap: 4px; }
+.app-shell .fa-code-panel .room-code-display { margin-top: 4px; }
+.fa-room-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.fa-options-panel { display: flex; flex-direction: column; gap: 8px; min-height: 0; overflow-y: auto; }
+.app-shell .fa-options-panel .room-settings { margin-top: 4px; }
+.fa-room-players { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.app-shell .fa-room-players .panel-topline { display: flex; align-items: center; justify-content: space-between; }
+.fa-seat-grid { display: grid; grid-template-columns: 1fr; gap: 6px; min-height: 0; overflow-y: auto; padding: 2px; }
+.fa-seat-grid.two { grid-template-columns: 1fr 1fr; }
+.fa-room-seat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 6px 8px;
+  background: var(--panel-2);
+  box-shadow: 0 0 0 var(--px) var(--edge), inset calc(var(--px) * 3) 0 0 0 var(--seat, #4a3a78);
+}
+.fa-room-seat.open { background: transparent; box-shadow: 0 0 0 var(--px) #4a3a78; }
+.fa-room-seat-name { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.fa-room-seat-name strong { overflow: hidden; color: var(--text); font-size: 24px; line-height: 28px; font-weight: 400; white-space: nowrap; text-overflow: ellipsis; }
+.fa-room-seat-name > span { display: flex; flex-wrap: wrap; gap: 4px; color: var(--muted); font-size: 12px; }
+.fa-room-seat .empty-avatar { display: grid; place-items: center; width: 32px; height: 32px; flex: 0 0 auto; }
+.fa-room-seat .kick-button, .fa-room-seat .add-bot-button { flex: 0 0 auto; margin-left: auto; }
+.fa-mini-avatar { display: inline-block; flex: 0 0 auto; width: 32px; height: 32px; box-shadow: 0 0 0 var(--px) var(--seat); }
+.fa-mini-avatar img { display: block; image-rendering: pixelated; }
+.fa-tag { padding: 0 4px; font-style: normal; font-size: 12px; line-height: 16px; color: #fff4dc; background: #4a3a78; }
+.fa-tag.bot { color: #d8e8ff; background: #2a62c0; }
+.fa-tag.you { color: #2a1c06; background: #f0c050; }
+.fa-tag.warn { color: #ffd8d0; background: #6e1020; }
+.fa-start { display: flex; flex-direction: column; gap: 6px; margin-top: auto; }
+.app-shell .fa-start-button { width: 100%; margin-top: 0; min-height: 52px; font-size: 24px; }
+.fa-room-kinds { flex: 0 0 auto; }
+.fa-room-kinds .fa-kinds { margin-top: 8px; }
+.fa-room-chat { flex: 1; min-height: 0; display: flex; }
+.app-shell .fa-room-chat .room-chat.light { display: flex; flex-direction: column; flex: 1; min-height: 0; margin: 0; padding: 10px 12px; }
+.app-shell .fa-room-chat .room-chat-heading span { display: none; }
+.app-shell .fa-room-chat .room-chat-list { flex: 1; height: auto; min-height: 60px; }
+.app-shell .fa-room .feedback { margin: 0; }
+
+/* ---------- 大屏：首页大图放到 2× ---------- */
+@media (min-width: 1800px) and (min-height: 900px) {
+  .fa-home { grid-template-columns: 1024px minmax(360px, 440px) minmax(280px, 1fr); }
+  .fa-hero-art { width: 1024px; height: 576px; background-size: 1024px 576px; }
+  .app-shell .fa-hero-art h1 { font-size: 72px; left: 24px; bottom: 20px; }
+  .fa-lead { font-size: 24px; line-height: 1.6; }
+  .fa-room { grid-template-columns: minmax(320px, 420px) minmax(480px, 760px) minmax(300px, 1fr); }
+  .fa-room-seat { min-height: 56px; }
+}
+
+/* ---------- 中等宽度：首页两列，在线牌桌放到大图下面 ---------- */
+@media (max-width: 1279px) and (min-width: 700px) {
+  .fa-home { grid-template-columns: 512px minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); grid-template-areas: "hero entry" "rooms entry"; }
+  .fa-home-hero .fa-kinds { display: none; }
+  .fa-room { grid-template-columns: minmax(250px, 290px) minmax(0, 1fr) minmax(220px, 260px); gap: 12px; }
+  .fa-room-kinds { display: none; }
+}
+@media (max-height: 760px) and (min-width: 700px) {
+  .fa-home-hero .fa-kinds { display: none; }
+}
+
+/* ---------- 手机：一列，第一屏是标题和进入牌桌 ---------- */
+@media (max-width: 699px) {
+  .app-shell.fa-page { height: auto; min-height: 100vh; padding: 0 10px 16px; }
+  .app-shell .fa-pagebar { height: 48px; }
+  .app-shell .fa-pagebar .center-link { display: none; }
+  .app-shell .fa-pagebar .connection-status { display: none; }
+  .app-shell .brand-name { font-size: 12px; }
+  .fa-home, .fa-room { display: flex; flex-direction: column; height: auto; gap: 12px; padding-top: 8px; }
+  .fa-hero-art { width: 100%; height: 120px; background-size: 512px 288px; background-position: center 70%; }
+  .app-shell .fa-hero-art h1 { font-size: 36px; left: 10px; bottom: 8px; }
+  .fa-home-hero { gap: 8px; }
+  .fa-home-hero .fa-kinds, .fa-home-facts { display: none; }
+  .fa-home-hero { display: contents; }
+  .fa-hero-art { order: 1; }
+  .fa-entry { order: 2; }
+  .fa-lead { order: 3; padding: 8px 10px; background: rgba(28, 20, 48, 0.86); }
+  .app-shell .fa-entry .entry-card-heading { display: none; }
+  .app-shell .fa-entry { padding: 12px 14px; }
+  .app-shell .fa-entry .entry-form { margin-top: 8px; }
+  .fa-home-rooms { order: 3; overflow: visible; }
+  .fa-capacity { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .fa-room-info { display: contents; }
+  .fa-code-panel { order: 1; }
+  .fa-room-players { order: 2; }
+  .fa-options-panel { order: 3; overflow: visible; }
+  .fa-room-side { order: 4; }
+  .fa-seat-grid { overflow: visible; }
+  .fa-seat-grid.two { grid-template-columns: 1fr 1fr; }
+  .fa-room-seat { min-height: 44px; padding: 4px 6px; gap: 6px; }
+  .fa-room-seat .add-bot-button { padding: 2px 6px; }
+  .fa-room-chat { min-height: 300px; }
+  .fa-room-kinds .fa-kinds { gap: 4px; }
+}
+.fa-room-seat.open .fa-room-seat-name strong { color: var(--muted); font-size: 12px; line-height: 16px; }
+/* 中等宽度和手机：两列座位里名字放不下 24px，用 12px（不截断「咕噜一号」） */
+@media (max-width: 1279px) {
+  .fa-room-seat-name strong { font-size: 12px; line-height: 16px; }
+}
+.app-shell .fa-pagebar .gm-modal-backdrop { white-space: normal; }
+.fa-muted { color: var(--muted); font-size: 12px; }
