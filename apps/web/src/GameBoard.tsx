@@ -31,6 +31,9 @@ import GameRules from "./GameRules.js";
 import { useSfxCountdown } from "./gm-sound.js";
 import { pickFinalCw, pickLayout } from "./layout.js";
 import { socket } from "./socket.js";
+import { Coach, TipToast } from "./tutorial/Coach.js";
+import { useFirstTimeTips } from "./tutorial/tips.js";
+import { detectTips, GAME_ID, TIPS } from "./tutorial/tutorialGame.js";
 
 interface GameBoardProps {
   readonly room: LobbyRoomSnapshot;
@@ -207,8 +210,10 @@ function GameBoard(props: GameBoardProps) {
   // ---------- 提示（练习局、只有自己和人机的房间） ----------
   const botsOnly = !spectating && room.members.length > 1 && room.members.every((candidate) => candidate.id === member?.id || candidate.bot === true);
   const hintAllowed = props.showHint === true || mode === "practice" || (mode === "online" && botsOnly);
-  const [hint, setHint] = useState<{ version: number; reason: string } | null>(null);
-  const shownHint = hint && hint.version === game.version ? hint.reason : null;
+  // 提示跟着「这一步」走：别人出牌、留圣所（version 变了）不收起，轮到下一步才收起
+  const hintKey = `${step}:${me.submitted}:${me.offerCount}:${me.handCount}`;
+  const [hint, setHint] = useState<{ key: string; say: string; reason: string; anchor: string } | null>(null);
+  const shownHint = hint && hint.key === hintKey ? hint : null;
   function askHint() {
     if (shownHint) {
       setHint(null);
@@ -217,11 +222,28 @@ function GameBoard(props: GameBoardProps) {
     const decision = botHint(game, myId);
     if (!decision) return;
     const command = decision.command;
-    if (command.type === "keep") setSelection({ kind: "keep", sanctuary: command.sanctuary });
-    else setSelection({ kind: command.type, card: command.card });
-    setHint({ version: game.version, reason: decision.reason });
+    let anchor = "";
+    if (command.type === "keep") {
+      setSelection({ kind: "keep", sanctuary: command.sanctuary });
+      anchor = `offer:${command.sanctuary}`;
+    } else {
+      setSelection({ kind: command.type, card: command.card });
+      anchor = command.type === "play" ? `hand:${command.card}` : `market:${command.card}`;
+    }
+    const say = command.type === "play" ? `我会出 ${command.card}。` : command.type === "take" ? `我会挑 ${command.card}。` : "我会留这张圣所。";
+    setHint({ key: hintKey, say, reason: decision.reason.replace(/^[^：]*：/, ""), anchor });
     pickSound(true);
   }
+  useEffect(() => {
+    if (!hintAllowed) return;
+    const onKey = (event: KeyboardEvent) => {
+      if ((event.target as HTMLElement | null)?.closest("input, textarea")) return;
+      if ((event.key === "h" || event.key === "H") && needMe) askHint();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
+  const tips = useFirstTimeTips(GAME_ID, game.version, () => detectTips(game, selfId, autoPlaying), TIPS, mode === "online" && !spectating);
 
   // ---------- 聊天抽屉、圣所面板 ----------
   const [chatOpen, setChatOpen] = useState(false);
@@ -464,7 +486,7 @@ function GameBoard(props: GameBoardProps) {
         canConfirm={(selection?.kind === "play" && canPlay) || (selection?.kind === "take" && canTake) || (selection?.kind === "keep" && canKeep)}
         onConfirm={() => confirm()}
         onCancel={() => setSelection(null)}
-        hint={hintAllowed && needMe ? { text: shownHint, onAsk: askHint } : null}
+        hint={hintAllowed && needMe ? { text: shownHint ? shownHint.say : null, onAsk: askHint } : null}
         autoPlaying={autoPlaying}
         onCancelAuto={() => onAuto(false)}
         timedOut={timedOut}
@@ -534,6 +556,21 @@ function GameBoard(props: GameBoardProps) {
         </aside>
       )}
       {detail && <DetailDialog detail={detail} onClose={() => setDetail(null)} />}
+      {shownHint && (
+        <Coach
+          bubble
+          view={{
+            key: `hint-${hintKey}`,
+            say: shownHint.say,
+            note: shownHint.reason,
+            anchor: shownHint.anchor,
+            focus: false,
+            face: "think",
+            actions: <button className="quiet-button" type="button" onClick={() => setHint(null)}>知道了</button>,
+          }}
+        />
+      )}
+      {tips.tip && game.phase !== "ended" && <TipToast tip={tips.tip} onClose={tips.dismiss} onNever={tips.never} />}
       {game.phase === "ended" && (
         <FinalPanel
           game={game}
@@ -675,7 +712,6 @@ function ActionBox({ game, selection, canConfirm, onConfirm, onCancel, hint, aut
       {hint && !autoPlaying && (
         <div className="fa-hint">
           <button className="quiet-button" type="button" onClick={hint.onAsk} data-tutorial="hint">{hint.text ? "收起提示" : "提示"}</button>
-          {hint.text && <p className="fa-hint-text">{hint.text}</p>}
         </div>
       )}
     </div>
@@ -764,7 +800,7 @@ function FinalPanel({ game, room, myId, selfId, memberId, spectating, onRematch,
             const shownRegions = score.regions.reduce((sum, value, index) => sum + (index >= 8 - opened ? value : 0), 0);
             const total = step >= 9 ? score.total : shownRegions;
             return (
-              <div key={id} className={`fa-final-row${id === myId ? " me" : ""}${done && rank === 0 ? " winner" : ""}`} style={{ "--seat": seatColor(player.seat) } as CSSProperties} data-tutorial={id === myId ? "final-me" : undefined}>
+              <div key={id} className={`fa-final-row${id === myId ? " me" : ""}${done && rank === 0 ? " winner" : ""}`} style={{ "--seat": seatColor(player.seat) } as CSSProperties} data-tutorial={`final:${id}`}>
                 <div className="fa-final-who">
                   {done && <span className="fa-rank">{rank + 1}</span>}
                   <span className="fa-final-name">{id === selfId ? `${player.name}（你）` : player.name}</span>

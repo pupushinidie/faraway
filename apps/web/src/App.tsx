@@ -19,6 +19,11 @@ import { roomRole, RoomSettingsPanel, SeatSwitch } from "./RoomExtras.js";
 import { socket } from "./socket.js";
 import { ThemeToggle, useTheme, type Theme } from "./theme.js";
 import { NO_BGM, SoundToggle, sfx, useBgm, useRoomSfx } from "./gm-sound.js";
+import { TutorialInvite } from "./tutorial/Invite.js";
+import { readTutorial } from "./tutorial/storage.js";
+import { GAME_ID } from "./tutorial/tutorialGame.js";
+import TutorialMode from "./tutorial/TutorialMode.js";
+import "./tutorial/tutorial.css";
 import { useVoice } from "./voice.js";
 
 type EntryMode = "create" | "join";
@@ -303,6 +308,15 @@ function App() {
   }
 
 
+  if (tutorialOpen && room?.status !== "playing") {
+    return (
+      <main data-gc-table className="app-shell fa-game tut-on">
+        <TutorialMode name={name} brand={<Brand />} themeToggle={themeToggle} theme={theme} waitingRoom={room?.code} onExit={closeTutorial} />
+        {confirmDialog}
+      </main>
+    );
+  }
+
   if (room?.status === "playing" && room.game) {
     const players = room.game.players;
     const watched = players.some((player) => player.id === watchId) ? watchId : players[0]!.id;
@@ -349,6 +363,15 @@ function App() {
           onAddBot={addBot}
           onDissolve={dissolveRoom}
           onOptions={changeOptions}
+          tutorialEntry={
+            <TutorialInvite
+              record={readTutorial(GAME_ID)}
+              title="等人的时候，先学一下？"
+              text="咕噜嘎带你在真牌桌上打一局，不会离开房间，房主一开局就自动回来。"
+              again="再看一遍新手教程"
+              onOpen={() => setTutorialOpen(true)}
+            />
+          }
         />
         {confirmDialog}
       </>
@@ -379,6 +402,15 @@ function App() {
         lobbyRooms={lobbyRooms}
         onJoinListed={joinListed}
         confirm={confirmAction}
+        tutorialEntry={
+          <TutorialInvite
+            record={readTutorial(GAME_ID)}
+            title="第一次玩？5 分钟学会"
+            text="咕噜嘎在真牌桌上带你打一局，学完和人机练一局。"
+            again="再看一遍新手教程"
+            onOpen={() => setTutorialOpen(true)}
+          />
+        }
       />
       {confirmDialog}
     </>

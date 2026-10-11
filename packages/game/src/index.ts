@@ -80,3 +80,17 @@ export type { ExactSpec, PlayerSpec, SceneName, SceneOptions, SceneRoomOptions }
 export { stateProblems } from "./validate.js";
 export { botCommand, botDecision, botHint, botUnknownCards, DEFAULT_BOT_OPTIONS, needScore } from "./bot.js";
 export type { BotDecision, BotOptions } from "./bot.js";
+export {
+  anchorCandidates,
+  anchorVisible,
+  createPracticeGame,
+  createTutorialGame,
+  sameMove,
+  selfCanAct,
+  TUTORIAL_BOT,
+  TUTORIAL_DEAL,
+  TUTORIAL_SELF,
+  TUTORIAL_STEPS,
+  tutorialActor,
+} from "./tutorial.js";
+export type { TutorialFace, TutorialMove, TutorialStep } from "./tutorial.js";

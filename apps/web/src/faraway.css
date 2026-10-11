@@ -378,3 +378,7 @@ button.fa-sc { cursor: pointer; }
 .fa-auto-phone { align-self: flex-start; }
 .fa-board.phone .fa-topbar .topbar-right { gap: 4px; }
 .fa-board.phone .fa-topbar .quiet-button { padding-left: 6px; padding-right: 6px; }
+
+/* ---------- 新手教程 ---------- */
+.fa-tut-tag { white-space: nowrap; }
+.tut-room-note { color: var(--muted); font-size: 12px; white-space: nowrap; }
