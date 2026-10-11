@@ -296,7 +296,7 @@ button.fa-sc { cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { .fa-fx-sanct, .fa-fx-score { animation: none; background-position: 100% 0; } }
 
 /* ---------- 提示条、托管条、聊天抽屉、详情 ---------- */
-.fa-banner { position: absolute; z-index: 20; top: 52px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; gap: 12px; padding: 4px 8px; color: #1c1430; background: #f0c050; font-size: 12px; }
+.fa-banner { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 4px 8px; color: #1c1430; background: #f0c050; font-size: 12px; }
 .fa-toast { position: absolute; z-index: 40; left: 50%; bottom: 16px; transform: translateX(-50%); padding: 8px 14px; color: #1c1430; background: #b7f0c0; box-shadow: 0 0 0 2px #0d0818; font-size: 12px; white-space: nowrap; }
 .fa-toast.error { background: #ffd8d0; }
 .fa-chat { position: fixed; z-index: 35; top: 52px; right: 0; bottom: 0; width: min(360px, 100%); display: none; flex-direction: column; gap: 8px; padding: 8px; box-sizing: border-box; background: var(--panel); box-shadow: -2px 0 0 var(--edge); }
@@ -375,3 +375,6 @@ button.fa-sc { cursor: pointer; }
 .fa-board.phone .fa-pts small { display: none; }
 .fa-board.phone .fa-mine .fa-pts { min-width: 0; padding: 0 2px; }
 .fa-board.phone .fa-empty { height: auto; padding: 8px 12px; }
+.fa-auto-phone { align-self: flex-start; }
+.fa-board.phone .fa-topbar .topbar-right { gap: 4px; }
+.fa-board.phone .fa-topbar .quiet-button { padding-left: 6px; padding-right: 6px; }

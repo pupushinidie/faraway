@@ -300,12 +300,13 @@ function GameBoard(props: GameBoardProps) {
   const topbar = (
     <header className="topbar fa-topbar">
       {brand}
-      <span className="fa-round" data-tutorial="round">第 <b>{game.round}</b>/8 轮</span>
+      <span className="fa-round" data-tutorial="round">{layout.mode === "desk" && "第 "}<b>{game.round}</b>/8 轮</span>
       <span className="fa-decks" title="区域牌堆、圣所牌堆还剩几张">牌堆 {game.regionDeckCount} · 圣所堆 {game.sanctuaryDeckCount}</span>
+      {autoPlaying && layout.mode === "desk" && <span className="fa-banner" role="status">托管中：人机在替你打</span>}
       <div className="topbar-right">
         {spectating && <span className="fa-tag watch">观战中</span>}
         {props.extraTop}
-        {!spectating && game.phase !== "ended" && mode === "online" && (
+        {!spectating && game.phase !== "ended" && mode === "online" && layout.mode === "desk" && (
           <button className="quiet-button" type="button" onClick={() => onAuto(!autoPlaying)}>{autoPlaying ? "取消托管" : "托管"}</button>
         )}
         <GameRules />
@@ -469,6 +470,7 @@ function GameBoard(props: GameBoardProps) {
         timedOut={timedOut}
         spectating={spectating}
         offer={offer}
+        onAuto={!spectating && game.phase !== "ended" && mode === "online" && layout.mode === "phone" && !autoPlaying ? () => onAuto(true) : undefined}
       />
       <div className="fa-sancts" data-tutorial="my-sanctuaries" aria-label="圣所">
         <div className="fa-label">圣所<small>{me.sanctuaries.length ? "一直算" : "比上一张大才有"}</small></div>
@@ -505,11 +507,6 @@ function GameBoard(props: GameBoardProps) {
   return (
     <div className={`fa-board ${layout.mode}${game.phase === "ended" ? " ended" : ""}`} style={style}>
       {topbar}
-      {autoPlaying && (
-        <div className="fa-banner auto" role="status">
-          托管中：人机在替你打 <button className="quiet-button" type="button" onClick={() => onAuto(false)}>取消托管</button>
-        </div>
-      )}
       {layout.mode === "desk" ? (
         <>
           {opps}
@@ -625,7 +622,7 @@ function OppPanel({ player, member, game, assist, picking, waiting, onDetail, on
   );
 }
 
-function ActionBox({ game, selection, canConfirm, onConfirm, onCancel, hint, autoPlaying, onCancelAuto, timedOut, spectating, offer }: {
+function ActionBox({ game, selection, canConfirm, onConfirm, onCancel, hint, autoPlaying, onCancelAuto, timedOut, spectating, offer, onAuto }: {
   game: GameState;
   selection: Selection;
   canConfirm: boolean;
@@ -638,6 +635,8 @@ function ActionBox({ game, selection, canConfirm, onConfirm, onCancel, hint, aut
   spectating: boolean;
   /** 抽到的圣所（选 1 张留下），没有就是 null。 */
   offer: ReactNode;
+  /** 手机上「托管」按钮放在操作区（顶栏放不下）。 */
+  onAuto: (() => void) | undefined;
 }) {
   let label = "";
   let text = "";
@@ -672,6 +671,7 @@ function ActionBox({ game, selection, canConfirm, onConfirm, onCancel, hint, aut
       ) : offer ? null : (
         <p className="fa-action-text">{timedOut ? "刚才超时了，系统替你做了这一步。" : game.phase === "ended" ? "" : "点卡片看说明；能选的卡会亮起来。"}</p>
       )}
+      {onAuto && <button className="quiet-button fa-auto-phone" type="button" onClick={onAuto}>托管（人机代打）</button>}
       {hint && !autoPlaying && (
         <div className="fa-hint">
           <button className="quiet-button" type="button" onClick={hint.onAsk} data-tutorial="hint">{hint.text ? "收起提示" : "提示"}</button>
