@@ -139,3 +139,9 @@ const room = createSceneRoom(game, { viewer: "p1", bots: ["p2"], auto: ["p3"], o
 
 - 引擎和服务器：完成（2026-10-11）。
 - 人机：完成（2026-10-11）。
+- 界面：完成（2026-10-11）。预览页 `http://localhost:5299/preview.html?s=<场景>`（参数见 `apps/web/src/preview.tsx` 开头）；排版规则在 `apps/web/src/layout.ts`，卡面在 `cards.tsx`，牌桌在 `GameBoard.tsx`，样式 `faraway.css`、白天调色表 `day-palette.ts`。
+
+## 背景音乐 / 声音
+
+- 没有背景音乐（`NO_BGM`，全站以后统一加）；♪ 面板照样有（音效、语音音量）。
+- 动作音效在 `apps/web/src/game-sfx.ts`：出牌、翻牌、发现圣所（风铃）、挑牌、留圣所、新一轮、轮到你、超时；终局翻牌每张一声（按分数高低）、输赢。房间进出、开局、聊天由 `gm-sound.tsx` 的 `useRoomSfx` 管。
