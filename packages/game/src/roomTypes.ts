@@ -1,7 +1,7 @@
-import type { GameCommand, GameState } from "./types.js";
+import type { GameCommand, GameOptions, GameState } from "./types.js";
 
-/** 房间人数：2–4 人（规格书第 1 节）。 */
-export const CAPACITY_OPTIONS = [2, 3, 4] as const;
+/** 房间人数：2–6 人（规则书 §3：7 人基础卡不够；一个人也能加人机开局）。 */
+export const CAPACITY_OPTIONS = [2, 3, 4, 5, 6] as const;
 export type Capacity = (typeof CAPACITY_OPTIONS)[number];
 
 export interface LobbyMember {
@@ -40,6 +40,8 @@ export interface LobbyRoomSnapshot {
 	readonly code: string;
 	readonly spectators: Spectator[];
 	readonly access: RoomAccess;
+	/** 开房选项（辅助显示）；等候时房主可改，开局后固定。 */
+	readonly options: GameOptions;
 	readonly capacity: Capacity;
 	readonly status: "waiting" | "playing";
 	readonly members: LobbyMember[];
@@ -92,6 +94,8 @@ export interface SendRoomChatPayload {
 export interface CreateRoomPayload {
 	readonly name: string;
 	readonly capacity: Capacity;
+	/** 不给的项用默认值（辅助显示开）。 */
+	readonly options?: Partial<GameOptions>;
 }
 
 /** 用房间码加入，或者从首页列表按房间的公开 id 加入；spectate 为 true 时进来观战。 */
@@ -107,6 +111,7 @@ export interface PublicRoomSummary {
 	readonly id: string;
 	readonly status: "waiting" | "playing" | "finished";
 	readonly capacity: Capacity;
+	readonly options: GameOptions;
 	readonly open: boolean;
 	readonly allowSpectators: boolean;
 	readonly spectators: number;
@@ -115,6 +120,7 @@ export interface PublicRoomSummary {
 		readonly isHost: boolean;
 		readonly connected: boolean;
 		readonly bot?: boolean;
+		/** 终局总分；对局中是出牌区按现在算的分数（公开信息算得出来）。 */
 		readonly score?: number;
 		readonly isActive?: boolean;
 		readonly isWinner?: boolean;
@@ -135,6 +141,8 @@ export interface ClientToServerEvents {
 	"room:rematch": (accept: boolean, ack: RoomAck<void>) => void;
 	"room:kick": (memberId: string, ack: RoomAck<void>) => void;
 	"room:access": (access: Partial<RoomAccess>, ack: RoomAck<void>) => void;
+	/** 等候时房主改开房选项（辅助显示开关）。 */
+	"room:options": (options: Partial<GameOptions>, ack: RoomAck<void>) => void;
 	/** 等待中：观战的人坐到空座位上 / 玩家（房主除外）改成观战。 */
 	"room:sit": (ack: RoomAck<void>) => void;
 	"room:stand": (ack: RoomAck<void>) => void;
