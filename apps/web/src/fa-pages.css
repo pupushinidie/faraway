@@ -131,7 +131,8 @@
 
 /* ---------- 大屏：首页大图放到 2× ---------- */
 @media (min-width: 1800px) and (min-height: 900px) {
-  .fa-home { grid-template-columns: 1024px minmax(360px, 440px) minmax(280px, 1fr); }
+  .fa-home { grid-template-columns: 1048px minmax(360px, 440px) minmax(280px, 1fr); }
+  .fa-home-hero .fa-kinds { display: none; }
   .fa-hero-art { width: 1024px; height: 576px; background-size: 1024px 576px; }
   .app-shell .fa-hero-art h1 { font-size: 72px; left: 24px; bottom: 20px; }
   .fa-lead { font-size: 24px; line-height: 1.6; }
